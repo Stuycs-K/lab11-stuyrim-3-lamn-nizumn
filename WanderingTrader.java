@@ -2,12 +2,17 @@ import java.util.Random;
 
 public class WanderingTrader extends Adventurer{
   int Artifact1, Artifact2, Artifact3, ArtifactPowerMax;
+  int Artifact;
+  Random rand = new Random();
 
+  public void whichArtifact(){
+    Artifact = rand.nextInt(3) + 1;
+  }
 
   public WanderingTrader(String name, int hp){
     super(name, hp);
-    Random rand = new Random();
     ArtifactPowerMax = rand.nextInt(11) + 45;
+    whichArtifact();
     Artifact1 = 40;
     Artifact2 = 40;
     Artifact3 = 40;
@@ -24,11 +29,15 @@ public class WanderingTrader extends Adventurer{
   //abstract methods:
 
   public String getSpecialName(){
-    return null;
+    if (Artifact == 1){ return "Artifact1";}
+    else if (Artifact == 2){ return "Artifact2";}
+    else { return "Artifact3";}
   }
 
   public int getSpecial(){
-    return 0;
+    if (Artifact == 1){ return Artifact1;}
+    else if (Artifact == 2){ return Artifact2;}
+    else { return Artifact3;}
   }
 
   public int getSpecialMax(){
@@ -36,7 +45,9 @@ public class WanderingTrader extends Adventurer{
   }
 
   public void setSpecial(int n){
-
+    if (Artifact == 1){ Artifact1 = n;}
+    else if (Artifact == 2){ Artifact2 = n;}
+    else { Artifact3 = n;}
   }
 
   public String attack(Adventurer other){
