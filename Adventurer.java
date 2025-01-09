@@ -56,6 +56,7 @@ public abstract class Adventurer{
   //hurt or hinder the target adventurer, consume some special resource
   public abstract String specialAttack(Adventurer other);
 
+  public abstract String specialAblity(Adventurer other);
   /*
   standard methods
   */

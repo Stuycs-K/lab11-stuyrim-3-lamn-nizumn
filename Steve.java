@@ -1,12 +1,11 @@
 public class Steve extends Adventurer{
-  private int blocks;
+  private int blocks=0, damage=6;
   public Steve(String name){
     this.(name, 20);
   }
   public Steve(String name, int HP){
     this.name = name;
     this.HP = HP;
-    this.blocks = 0;
   }
   public String getSpecialName(){
     return "blocks";
@@ -21,6 +20,20 @@ public class Steve extends Adventurer{
     this.blocks = n;
   }
   public String attack(Adventurer other){
-    other.applyDamage()
+    Random seed = new Random();
+    Random hit = new Random((long)seed.nextInt());
+    other.applyDamage((int) hit.nextDouble()*this.damage);
+  }
+  public String support(Adventurer other){
+    
+  }
+  public String support(){
+
+  }
+  public String specialAttack(Adventurer other){
+
+  }
+  public String specialAbility(Adventurer other){
+
   }
 }
