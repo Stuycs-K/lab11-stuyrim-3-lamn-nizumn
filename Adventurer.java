@@ -1,7 +1,9 @@
 import java.util.Random;
+import java.util.ArrayList;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
+  private ArrayList<Adventurer> enemies, friends;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -10,6 +12,12 @@ public abstract class Adventurer{
   */
 
   //give it a short name (fewer than 13 characters)
+  public void addFriends(Adventurer other){
+    friends.add(other);
+  }
+  public void addEnemies(Adventurer other){
+    enemies.add(other);
+  }
   public abstract String getSpecialName();
   //accessor methods
   public abstract int getSpecial();
