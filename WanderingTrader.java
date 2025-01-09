@@ -3,6 +3,7 @@ import java.util.Random;
 public class WanderingTrader extends Adventurer{
   int Artifact1, Artifact2, Artifact3, ArtifactPowerMax;
   int Artifact;
+  int ability; //can acess more artifacts with greater ability
   Random rand = new Random();
 
   public void whichArtifact(){
@@ -51,7 +52,17 @@ public class WanderingTrader extends Adventurer{
   }
 
   public String attack(Adventurer other){
-    return null;
+    int damage = (int)((rand.nextInt(5)+1)*2);
+    other.applyDamage(damage);
+    int restore;
+    if (damage >= 5){
+      restore = damage;
+    }
+    else{
+      restore = damage * 2;
+    }
+    restoreSpecial(restore);
+    return this + " attacked " + other + " and dealt a damge of " + damage + " hp. In turn, the " + getSpecial() + " gained " + restore + " power!";
   }
 
   public String support(Adventurer other){
