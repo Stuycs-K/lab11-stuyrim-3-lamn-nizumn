@@ -1,6 +1,12 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/KprAwj1n)
 # APCS - Stuyrim
 
+
+Game Theme: Minecraft
+main character: Steve
+enemies
+friendly players
+
 ## Features
 
 Make a clear list of features that work/dont work
@@ -16,7 +22,13 @@ Make a clear list of features that work/dont work
 :beetle: This is a bug that affects the game.
 
 
-## Adventurer Subclasses
+# Adventurer Subclasses
 
 replace this with your documentation for your two Adventurer subclasses. If you modify or replace the provided CodeWarrior class, please provide documentation for that as well.
 
+Nathan: Steve, 3 enemies, boss
+
+Nowar: sheep, allay, wandering trader
+
+## Wandering trader
+special: magical artifact
