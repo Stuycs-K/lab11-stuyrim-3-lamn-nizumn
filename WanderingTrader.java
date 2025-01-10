@@ -79,7 +79,13 @@ public class WanderingTrader extends Adventurer{
   }
 
   public String specialAttack(Adventurer other){
-    return null;
+    if (getSpecial() >= 7){
+      int damage = (int)(7 * Math.random() * 1.5);
+      other.applyDamage(damage);
+      setSpecial(getSpecial()-7);
+      return this + " used the " + getSpecialName() + " to zap " + other + " and dealt a damge of " + damage + " hp points!";
+    }
+    return this + " has depleted all the power of the " + getSpecialName() + "and so must " + attack(other);
   }
 
 }
