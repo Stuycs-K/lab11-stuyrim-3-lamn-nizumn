@@ -46,3 +46,25 @@ special feature: can chose between three different artifacts --> three different
 random artifact assigned when created
 needs to be written: player can chose artifact
 the more damage dealt on enemies--> more artifacts to chose between
+
+## Allay
+special: stop special of enemy
+* getSpecialName()
+* getSpecial()
+* setSpecial()
+* getSpecialMax()
+* attack(Adventurer other)
+* specialAttack(Adventurer other)
+* support(Adventurer other)
+* support()
+
+## Sheep
+special: snowball
+* getSpecialName()
+* getSpecial()
+* setSpecial()
+* getSpecialMax()
+* attack(Adventurer other)
+* specialAttack(Adventurer other)
+* support(Adventurer other)
+* support()
