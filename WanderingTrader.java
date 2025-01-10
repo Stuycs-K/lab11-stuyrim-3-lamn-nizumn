@@ -3,6 +3,7 @@ import java.util.Random;
 public class WanderingTrader extends Adventurer{
   int Artifact1, Artifact2, Artifact3, ArtifactPowerMax;
   int Artifact;
+  int [] Artifacts = new int [] {Artifact1, Artifact2, Artifact3};
   int ability; //can acess more artifacts with greater ability
   Random rand = new Random();
 
@@ -66,11 +67,15 @@ public class WanderingTrader extends Adventurer{
   }
 
   public String support(Adventurer other){
-    return null;
+    int restore = (other.getmaxHP() - other.getHP()) / 2;
+    return this + " replensishes the resources of " + other + " and restores " + other.restoreSpecial(restore) + " " + other.getSpecialName();
   }
 
   public String support(){
-    return null;
+    int restore = (this.getmaxHP() - this.getHP()) / 2;
+    int hp = rand.nextInt(4) + 5;
+    setHP(getHP()+hp);
+    return "Takes a swift break to restore " + this.restoreSpecial(restore) + "to " + this.getSpecialName() + " and gain " + hp + "hp.";
   }
 
   public String specialAttack(Adventurer other){
