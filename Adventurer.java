@@ -3,8 +3,10 @@ import java.util.ArrayList;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  private ArrayList<Adventurer> enemies, friends;
-
+  public int damage, armor;
+  public boolean buffed = false;
+  private ArrayList<Adventurer> enemies;
+  private ArrayList<Adventurer> friends;
   //Abstract methods are meant to be implemented in child classes.
   /*
   all adventurers must have a custom special
@@ -60,9 +62,9 @@ public abstract class Adventurer{
   /*
   standard methods
   */
-
   public void applyDamage(int amount){
-    this.HP -= amount;
+
+    this.HP -= (int) amount * (1 -= (double)this.armor*.08);
   }
 
   //You did it wrong if this happens.
