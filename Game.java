@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.Random;
+
 public class Game{
   private static final int WIDTH = 80;
   private static final int HEIGHT = 30;
@@ -9,11 +11,69 @@ public class Game{
     run();
   }
 
+  public static int [] randomArray(){
+    int [] random = new int [3];
+    Random x = new Random();
+    for (int i = 0; i < random.length; i++){
+      random[i] = x.nextInt(100);
+    }
+    return random;
+  }
+
+  public static int [] rainbow = {Text.RED, Text.YELLOW, Text.GREEN, Text.BLUE, Text.MAGENTA};
+
+  public static void rainbowLine(int i){
+     Text.color(rainbow[i % rainbow.length], Text.background(rainbow[(i + 1) % rainbow.length]));
+   }
+
+  public static void printLine (int row, int column, int limit, String character){
+    for (int i = 0; i <= limit; i++){
+      Text.go(row, column);
+      rainbowLine(i);
+      System.out.print(character);
+    }
+  }
+
+  public static void printLine (int row, int limit, String character){
+    for (int i = 0; i <= limit; i++){
+      Text.go(row, i);
+      rainbowLine(i);
+      System.out.print(character);
+    }
+  }
+
+  public static void printColumn (int column, int limit, String character){
+    for (int i = 2; i <= limit; i++){
+      Text.go(i, column);
+      rainbowLine(i);
+      System.out.print(character);
+    }
+  }
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    final int width = 80;
+    final int height = 30;
+    int [] random = randomArray();
+
+    Text.clear();
+    Text.hideCursor();
+
+    //top row
+    printLine(1, width, " ");
+
+    printColumn(1, height, " ");
+    printColumn(width, height, " ");
+
+    //bottom border
+    printLine(height, width, " ");
+
+    // Reset terminal and show cursor when finished
+    Text.reset()
+    ;
+    Text.go(31,1);
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
