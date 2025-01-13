@@ -32,16 +32,16 @@ Nathan: Steve, a bunch of enemies, boss
 Nowar: snow golem, allay, wandering trader
 
 ## Wandering trader
-special: magical artifact
-White Check: getSpecialName()
-White Check: getSpecial()
-White Check: setSpecial()
-White Check: getSpecialMax()
-White Check: attack(Adventurer other)
-White Check: specialAttack(Adventurer other)
-White Check: support(Adventurer other)
-White Check: support()
-X: output
+special: magical artifact\
+White Check: getSpecialName()\
+White Check: getSpecial()\
+White Check: setSpecial()\
+White Check: getSpecialMax()\
+White Check: attack(Adventurer other)\
+White Check: specialAttack(Adventurer other)\
+White Check: support(Adventurer other)\
+White Check: support()\
+X: output\
 
 ?: special feature: can chose between three different artifacts --> three different specials
 random artifact assigned when created
@@ -49,25 +49,25 @@ needs to be written: player can chose artifact
 the more damage dealt on enemies--> more artifacts to chose between
 
 ## Allay
-special: stop special of enemy
-X: getSpecialName()
-X: getSpecial()
-X: setSpecial()
-X: getSpecialMax()
-X: attack(Adventurer other)
-X: specialAttack(Adventurer other)
-X: support(Adventurer other)
-X: support()
+special: stop special of enemy\
+X: getSpecialName()\
+X: getSpecial()\
+X: setSpecial()\
+X: getSpecialMax()\
+X: attack(Adventurer other)\
+X: specialAttack(Adventurer other)\
+X: support(Adventurer other)\
+X: support()\
 
 ## Snow Golem
-special: snowball
-White Check: getSpecialName()
-White Check: getSpecial()
-White Check: setSpecial()
-White Check: getSpecialMax()
-White Check: attack(Adventurer other)
-White Check: specialAttack(Adventurer other)
-White Check: support(Adventurer other)
-White Check: support()
-Ballot Check: split attack
-X: output
+special: snowball\
+White Check: getSpecialName()\
+White Check: getSpecial()\
+White Check: setSpecial()\
+White Check: getSpecialMax()\
+White Check: attack(Adventurer other)\
+White Check: specialAttack(Adventurer other)\
+White Check: support(Adventurer other)\
+White Check: support()\
+Ballot Check: split attack\
+X: output\
