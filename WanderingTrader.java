@@ -63,12 +63,12 @@ public class WanderingTrader extends Adventurer{
       restore = damage * 2;
     }
     restoreSpecial(restore);
-    return this.getName() + " attacked " + other.getName() + " and dealt a damge of " + damage + " hp. In turn, the " + getSpecial() + " gained " + restore + " power!";
+    return this.getName() + " attacked " + other.getName() + " and dealt a damage of " + damage + " hp. In turn, the " + getSpecial() + " gained " + restore + " power!";
   }
 
   public String support(Adventurer other){
     int restore = (other.getmaxHP() - other.getHP()) / 2;
-    return this.getName() + " replensishes the resources of " + other.getName() + " and restores " + other.restoreSpecial(restore) + " " + other.getSpecialName();
+    return this.getName() + " replenishes the resources of " + other.getName() + " and restores " + other.restoreSpecial(restore) + " " + other.getSpecialName();
   }
 
   public String support(){

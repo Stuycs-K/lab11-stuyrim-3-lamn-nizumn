@@ -2,7 +2,7 @@ import java.util.Random;
 public class Steve extends Adventurer{
   private int items=0;
   public Steve(String name){
-    Steve("Steve", 20);
+    this("Steve", 20);
   }
   public Steve(String name, int HP){
     super(name, HP);
@@ -88,11 +88,17 @@ public class Steve extends Adventurer{
     return("Steve drank a potion of "+potions[potionindex][0]+", "+potions[potionindex][1]+".");
   }
   public String specialAttack(Adventurer other){
-
+    if(this.items >= 10){
+      other.stun = true;
+      return "Steve built a building around "+other.getName()+" and made them stuck.";
+    }else{
+      other.applyDamage(this.items*2);
+      return "Steve tried to build a building around "+ other.getName()+", but he did not have enough blocks.  Instead, Steve dropped the blocks on "+other.getName()+" and did "+this.items*2+" damage.";
+    }
   }
   public String specialAbility(){
     Random seed = new Random();
-    Random rng = new Random(seed);
+    Random rng = new Random((long)seed.nextInt());
     if(this.items>=5){
       if(rng.nextDouble() < .5){
         this.damage++;
@@ -101,6 +107,10 @@ public class Steve extends Adventurer{
         this.armor += 2.5;
         return("Steve used some of his items to craft an piece of armor, increasing his defense! (+2.5 armor)");
       }
+    }else{
+      int itemgather = ((int)(rng.nextDouble()*3)+2);
+      this.restoreSpecial(itemgather);
+      return"Steve tried to craft an upgraded piece of equipment but he was too dumb and forgot how to craft.  In his rage, he threw the crafting table at the wall, causing a small explosion and mining "+itemgather+" blocks.";
     }
   }
 }
