@@ -64,7 +64,7 @@ public abstract class Adventurer{
   */
   public void applyDamage(int amount){
 
-    this.HP -= (int) amount * (1 -= (double)this.armor*.08);
+  //  this.HP -= (int) amount * (1 -= (double)this.armor*.08);
   }
 
   //You did it wrong if this happens.

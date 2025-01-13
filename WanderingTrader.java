@@ -13,7 +13,7 @@ public class WanderingTrader extends Adventurer{
 
   public WanderingTrader(String name, int hp){
     super(name, hp);
-    ArtifactPowerMax = rand.nextInt(11) + 45;
+    ArtifactPowerMax = rand.nextInt(11) + 25;
     whichArtifact();
     Artifact1 = 40;
     Artifact2 = 40;

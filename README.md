@@ -58,7 +58,7 @@ special: stop special of enemy
 * support(Adventurer other)
 * support()
 
-## Sheep
+## Snow Golem 
 special: snowball
 * getSpecialName()
 * getSpecial()
