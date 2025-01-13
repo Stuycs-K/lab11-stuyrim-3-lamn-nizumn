@@ -4,7 +4,6 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   public int damage, armor;
-  public boolean buffed = false;
   private ArrayList<Adventurer> enemies;
   private ArrayList<Adventurer> friends;
   //Abstract methods are meant to be implemented in child classes.
@@ -58,12 +57,8 @@ public abstract class Adventurer{
   //hurt or hinder the target adventurer, consume some special resource
   public abstract String specialAttack(Adventurer other);
 
-  public abstract String specialAblity(Adventurer other);
-  /*
-  standard methods
-  */
   public void applyDamage(int amount){
-    this.HP -= ((int) amount * (1 -= (double)this.armor*.08));
+    this.HP -= ((int) amount * (1 - (double)this.armor*.08));
   }
 
   //You did it wrong if this happens.
