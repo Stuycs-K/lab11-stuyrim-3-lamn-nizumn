@@ -89,10 +89,12 @@ public class Steve extends Adventurer{
   }
   public String specialAttack(Adventurer other){
     if(this.items >= 10){
+      items -=10;
       other.stun = true;
       return "Steve built a building around "+other.getName()+" and made them stuck.";
     }else{
       other.applyDamage(this.items*2);
+      items = 0;
       return "Steve tried to build a building around "+ other.getName()+", but he did not have enough blocks.  Instead, Steve dropped the blocks on "+other.getName()+" and did "+this.items*2+" damage.";
     }
   }
@@ -100,6 +102,7 @@ public class Steve extends Adventurer{
     Random seed = new Random();
     Random rng = new Random((long)seed.nextInt());
     if(this.items>=5){
+      items -= 5;
       if(rng.nextDouble() < .5){
         this.damage++;
         return("Steve used some of his items to craft a better weapon, increasing his attack! (+1 max hit)");
