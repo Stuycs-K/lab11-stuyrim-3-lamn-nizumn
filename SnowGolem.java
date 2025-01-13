@@ -62,15 +62,34 @@ public class SnowGolem extends Adventurer{
   }
 
   public String attack(Adventurer other){
-    return null;
+    int damage = 3;
+    other.applyDamage(damage);  //might pass limit
+    setHP(getHP() + damage);
+    return this + " inflicted a damge of " + damage + " hp on " + other + " using his snowballs and gains some snowballs in turn!";
   }
 
   public String specialAttack(Adventurer other){
-    return null;
+    if (getSpecial() > 6){
+      int damage = (rand.nextInt(3) + 2) * 3;
+      other.applyDamage(damage);
+      setSpecial(getSpecial() - 6);
+      return this + " used their special attack to through " + damage + " snowballs at " + other +", depleting their hp!";
+    }
+    else{
+      return this + " has run out of snoballs and instead " + attack(other);
+    }
+  }
+
+  public void splitAttack(Adventurer opp1, Adventurer opp2, Adventurer opp3){
+    opp1.setHP(getHP() - 3);
+    System.out.println(opp1 + " has lost 3 hp!");
+    opp2.setSpecial(getSpecial() - 3);
+    System.out.println(opp2 + " has lost 3 specials!");
   }
 
   public String specialAblity(Adventurer other){
-    return null;
+    splitAttack(other, other, other);
+    return "yay";
   }
 
 
