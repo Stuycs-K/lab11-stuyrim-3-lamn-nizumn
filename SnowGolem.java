@@ -42,11 +42,23 @@ public class SnowGolem extends Adventurer{
   }
 
   public String support(Adventurer other){
-    return null;
+    int hp = (rand.nextInt(3) + 1) * 3;
+    setHP(getHP() - hp/3);
+    return this + " comes to the aid of " + other + " and gives them " + hp + " hp, losing some of their own!";
   }
 
   public String support(){
-    return null;
+    int hpNeeded = getmaxHP() - getmaxHP();
+    if (hpNeeded * 2 > getSpecial()){
+      setHP(getHP() + (getSpecial()/2 - 1));
+      setSpecial(getSpecial() - (getSpecial()/2 - 1));
+      return this + " used his remaining snowballs to generate hp";
+    }
+    else{
+      setHP(getmaxHP());
+      setSpecial(getSpecial() - hpNeeded * 2);
+      return this + " replenished his full health using some of his snowballs";
+    }
   }
 
   public String attack(Adventurer other){
