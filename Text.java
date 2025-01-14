@@ -23,6 +23,23 @@ public class Text{
     System.out.print("\u001b[0m");
   }
 
+  //use this to convert from color to background (30 to 37 becomes 40 to 47)
+  public static int background(int color){
+   return color + 10;
+  }
+
+  public static void color(int m){
+   System.out.print ("\033[;" + m + "m");
+  }
+  public static void color(int m1, int m2){
+    System.out.print ("\033["+ m1 + ";" + m2 + "m");
+  }
+  public static void color(int m1, int m2, int m3){
+    System.out.print ("\033["+ m1 + ";" + m2 + ";" + m3 + "m");
+  }
+  public static void color(int m1, int m2, int m3, int m4){
+    System.out.print ("\033["+ m1 + ";" + m2 + ";" + m3 + ";"+m4+"m");
+  }
 
   public static void hideCursor(){
     System.out.print("\u001b[?25l");
