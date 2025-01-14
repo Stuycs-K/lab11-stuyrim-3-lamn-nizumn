@@ -1,9 +1,10 @@
 import java.util.Random;
+import java.util.ArrayList;
 
 public class WanderingTrader extends Adventurer{
-  int Artifact1, Artifact2, Artifact3, ArtifactPowerMax;
+  int MagicMirror, GoldenGoblet, InfinityPouch, ArtifactPowerMax;
   int Artifact;
-  int [] Artifacts = new int [] {Artifact1, Artifact2, Artifact3};
+  int [] Artifacts = new int [] {MagicMirror, GoldenGoblet, InfinityPouch};
   int ability; //can acess more artifacts with greater ability
   Random rand = new Random();
 
@@ -15,9 +16,9 @@ public class WanderingTrader extends Adventurer{
     super(name, hp);
     ArtifactPowerMax = rand.nextInt(11) + 25;
     whichArtifact();
-    Artifact1 = 40;
-    Artifact2 = 40;
-    Artifact3 = 40;
+    MagicMirror = 40;
+    GoldenGoblet = 40;
+    InfinityPouch = 40;
   }
 
   public WanderingTrader(String name){
@@ -31,15 +32,15 @@ public class WanderingTrader extends Adventurer{
   //abstract methods:
 
   public String getSpecialName(){
-    if (Artifact == 1){ return "Artifact1";}
-    else if (Artifact == 2){ return "Artifact2";}
-    else { return "Artifact3";}
+    if (Artifact == 1){ return "Magic Mirror";}
+    else if (Artifact == 2){ return "Golden Goblet";}
+    else { return "Infinity Pouch";}
   }
 
   public int getSpecial(){
-    if (Artifact == 1){ return Artifact1;}
-    else if (Artifact == 2){ return Artifact2;}
-    else { return Artifact3;}
+    if (Artifact == 1){ return MagicMirror;}
+    else if (Artifact == 2){ return GoldenGoblet;}
+    else { return InfinityPouch;}
   }
 
   public int getSpecialMax(){
@@ -47,14 +48,15 @@ public class WanderingTrader extends Adventurer{
   }
 
   public void setSpecial(int n){
-    if (Artifact == 1){ Artifact1 = n;}
-    else if (Artifact == 2){ Artifact2 = n;}
-    else { Artifact3 = n;}
+    if (Artifact == 1){ MagicMirror = n;}
+    else if (Artifact == 2){ GoldenGoblet = n;}
+    else { InfinityPouch = n;}
   }
 
   public String attack(Adventurer other){
     int damage = (int)((rand.nextInt(5)+1)*2);
     other.applyDamage(damage);
+    ability += damage;
     int restore;
     if (damage >= 5){
       restore = damage;
@@ -63,7 +65,7 @@ public class WanderingTrader extends Adventurer{
       restore = damage * 2;
     }
     restoreSpecial(restore);
-    return this.getName() + " attacked " + other.getName() + " and dealt a damage of " + damage + " hp. In turn, the " + getSpecial() + " gained " + restore + " power!";
+    return this.getName() + " attacked " + other.getName() + " and dealt a damage of " + damage + " hp. In turn, the " + getSpecial() + " gained " + restore + getSpecialName + "!";
   }
 
   public String support(Adventurer other){
@@ -82,6 +84,7 @@ public class WanderingTrader extends Adventurer{
     if (getSpecial() >= 7){
       int damage = (int)(7 * Math.random() * 1.5);
       other.applyDamage(damage);
+      ability += damage;
       setSpecial(getSpecial()-7);
       return this.getName() + " used the " + getSpecialName() + " to zap " + other.getName() + " and dealt a damge of " + damage + " hp points!";
     }
