@@ -73,7 +73,7 @@ public class SnowGolem extends Adventurer{
       int damage = (rand.nextInt(3) + 2) * 3;
       other.applyDamage(damage);
       setSpecial(getSpecial() - 6);
-      return this + " used their special attack to through " + damage + " snowballs at " + other +", depleting their hp!";
+      return this + " used their special attack to through " + damage + " snowballs at " + other +", depleting them of " + damage + " hp!";
     }
     else{
       return this + " has run out of snoballs and instead " + attack(other);
