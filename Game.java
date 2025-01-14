@@ -6,6 +6,7 @@ public class Game{
   private static final int HEIGHT = 30;
   private static final int BORDER_COLOR = Text.BLACK;
   private static final int BORDER_BACKGROUND = Text.WHITE + Text.BACKGROUND;
+  Random rand = new Random();
 
   public static void main(String[] args) {
     run();
@@ -50,6 +51,8 @@ public class Game{
   public static void drawText(String s,int startRow, int startCol){
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    Text.go(startRow, startCol);
+    System.out.print(s);
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
@@ -66,6 +69,18 @@ public class Game{
   public static void TextBox(int row, int col, int width, int height, String text){
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    int currentRow = row;
+    int currentCol = col;
+    String [] words = text.split(" ");
+    String line = "";
+
+    for (int i = 0; i < words.length; i++){
+      if (line.length() + words[i].length() + 1 > width){
+        System.out.print("");
+      }
+    }
+
+
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
@@ -74,8 +89,19 @@ public class Game{
 
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
+    static String [] defaultNames = new String [] {"Andy", "Bob", "Chad", "Dave", "Ethan", "Fin", "Gabe", "Hector", "Ivan", "Jake", "Kevin", "Liam", "Mike", "Nick", "Oscar", "Peter", "Rob", "Steve", "Tom"};
     public static Adventurer createRandomAdventurer(){
-      return new CodeWarrior("Bob"+(int)(Math.random()*100));
+      String name = defaultNames[(int) (Math.random() * 19)];
+      int character = (int)(Math.random() * 3);
+      if (character == 1){
+        return new CodeWarrior(name+(int)(Math.random()*100));
+      }
+      if (character == 2){
+        return new SnowGolem(name+(int)(Math.random()*100));
+      }
+      else {
+        return new Steve(name+(int)(Math.random()*100));
+      }
     }
 
     /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
