@@ -7,6 +7,7 @@ public class WanderingTrader extends Adventurer{
   int [] Artifacts = new int [] {MagicMirror, GoldenGoblet, InfinityPouch};
   int ability; //can acess more artifacts with greater ability
   Random rand = new Random();
+  ArrayList<String> availableArtifacts = new ArrayList<String>();
 
   public void whichArtifact(){
     Artifact = rand.nextInt(3) + 1;
@@ -16,6 +17,9 @@ public class WanderingTrader extends Adventurer{
     super(name, hp);
     ArtifactPowerMax = rand.nextInt(11) + 25;
     whichArtifact();
+    if (Artifact == 1) { availableArtifacts.add("Magic Mirror");}
+    if (Artifact == 2) { availableArtifacts.add("Golden Goblet");}
+    if (Artifact == 1) { availableArtifacts.add("Infinity Pouch");}
     MagicMirror = 40;
     GoldenGoblet = 40;
     InfinityPouch = 40;
@@ -89,6 +93,15 @@ public class WanderingTrader extends Adventurer{
       return this.getName() + " used the " + getSpecialName() + " to zap " + other.getName() + " and dealt a damge of " + damage + " hp points!";
     }
     return this.getName() + " has depleted all the power of the " + getSpecialName() + "and so must " + attack(other);
+  }
+
+  public void IncreaseArtifacts(){
+    if (ability > 30){
+      if (availableArtifacts.get(1).equals("Magic Mirror")){
+        availableArtifacts.add("Golden Goblet");
+      }
+      }
+    }
   }
 
 }
