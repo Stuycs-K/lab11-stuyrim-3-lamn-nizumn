@@ -90,7 +90,7 @@ public class Steve extends Adventurer{
   public String specialAttack(Adventurer other){
     if(this.items >= 10){
       items -=10;
-      other.stun = true;
+      other.stunChance = .5;
       return "Steve built a building around "+other.getName()+" and made them stuck.";
     }else{
       other.applyDamage(this.items*2);

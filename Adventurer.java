@@ -4,7 +4,7 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   public int damage, armor;
-  public boolean stun = false;
+  public double stunChance = 0;
   private ArrayList<Adventurer> enemies;
   private ArrayList<Adventurer> friends;
   //Abstract methods are meant to be implemented in child classes.
