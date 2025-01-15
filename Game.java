@@ -148,7 +148,7 @@ public class Game{
     }
     // under 75% : yellow
     if (percent < 75){
-        color = Text.YELLOW;    
+        color = Text.YELLOW;
     }
     // otherwise : white
     else{
@@ -158,20 +158,19 @@ public class Game{
   }
 
 
-
-
-
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
   public static void drawScreen(){
-
+    /*
     drawBackground();
-
+    Text.go(15,2);
     //draw player party
-
+    drawParty(playerParty, 16);
     //draw enemy party
-
+    int enemyRow = 15 + playerParty.size();
+    drawParty(enemyParty, enemyRow);
+    */
   }
 
   public static String userInput(Scanner in){
