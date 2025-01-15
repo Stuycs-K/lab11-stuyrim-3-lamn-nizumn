@@ -204,7 +204,7 @@ public class Game{
     ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
-
+    enemies.add(Steve); //CHANE TO BOSS LATER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     //Adventurers you control:
@@ -212,6 +212,10 @@ public class Game{
     ArrayList<Adventurer> party = new ArrayList<>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    createRandomAdventurer
+    Adventurer [] options = new Adventurer [] {SnowGolem, WanderingTrader, CodeWarrior}; //////ADD ALLAY !!!!!!!!!!!!!!!!!!
+    party.add(Steve);
+    party.add(options[Math.random() * 2]);
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     boolean partyTurn = true;
