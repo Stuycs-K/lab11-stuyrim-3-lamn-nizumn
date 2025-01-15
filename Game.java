@@ -117,6 +117,21 @@ public class Game{
 
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       //YOUR CODE HERE
+      int start = startRow;
+      int column = 2;
+      for (int i = 0; i < party.size(); i++){
+        Text.go(startRow, column);
+        Adventurer current = party.get(i);
+        System.out.print(current.getName());
+        startRow++;
+        Text.go(startRow, column);
+        System.out.print("HP: " + current.getHP());
+        startRow++;
+        Text.go(startRow, column);
+        System.out.print(current.getSpecialName() + ": " + current.getSpecial());
+        startRow = start;
+        column += (78/party.size() - 1);
+      }
       /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     }
 
