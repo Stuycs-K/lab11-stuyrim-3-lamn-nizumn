@@ -77,16 +77,16 @@ public class Game{
     for (String word : words){
       if (line.length() + word.length() + 1 > width){ //will surpass the given width
         Text.go(currentRow++, col);
-        System.out.print(line.toString());
-        line = "";
-        if (currentRow - row >= height) { break; }
+        System.out.print(line);
+        line = word;
+        if (currentRow >= row + height) { break; }
       }
-
-
-      if (line.length() > 0) {
-            line += " ";
+      else{
+        if (line.length() > 0) {
+              line += " ";
+        }
+        line += word;
       }
-      line += word;
     }
 
     if (line.length() > 0 && currentRow < row + height){
@@ -94,8 +94,8 @@ public class Game{
       System.out.print(line.toString());
     }
 
-    for (int i = currentRow - row; i < height; i++){
-      Text.go(row + i, col);
+    for (int i = currentRow; i < row + height; i++){
+      Text.go(i, col);
       System.out.print(" ".repeat(width));
     }
 
@@ -205,12 +205,14 @@ public class Game{
   public static void drawScreen(ArrayList<Adventurer>enemies, ArrayList<Adventurer>party){
     drawBackground();
     Text.go(15,2);
-    TextBox(2, 2, WIDTH - 4, 3, "Your Players:");
-    drawParty(party, 5);
-
-    // Enemy Section
-    TextBox(HEIGHT - 5, 2, WIDTH - 4, 3, "Enemy Players:");
-    drawParty(enemies, HEIGHT - 3);
+    System.out.println("Your Players: ");
+    //draw player party
+    drawParty(party, 16);
+    //draw enemy party
+    Text.go(20, 2);
+    System.out.println("Enemy Players: ");
+    int enemyRow = 21;
+    drawParty(enemies, enemyRow);
   }
 
   public static String userInput(Scanner in){
@@ -276,7 +278,7 @@ public class Game{
       input = userInput(in);
 
       //example debug statment
-      TextBox(2,2,2,76,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+      TextBox(2,2,76,2,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
       //display event based on last turn's input
       if(partyTurn){
