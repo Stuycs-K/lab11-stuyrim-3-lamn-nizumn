@@ -28,19 +28,19 @@ public class Game{
       System.out.print(Text.colorize(horizontal, Text.GREEN));
     }
 
-    for (int line = 2; line < 30; line++){
+    for (int line = 2; line < 29; line++){
       Text.go(line,1);
       System.out.print(Text.colorize(vertical, Text.WHITE));
       Text.go(line,80);
       System.out.print(Text.colorize(vertical, Text.WHITE));
     }
 
-    Text.go(30,1);
+    Text.go(28,1);
     for (int i = 0; i < 80; i++){
       System.out.print(Text.colorize(horizontal, Text.GREEN));
     }
 
-    Text.go(31,1);
+    Text.go(30,1);
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
@@ -89,7 +89,7 @@ public class Game{
     }
 
     for (int i = currentRow - row; i < height; i++){
-      Text.go(row + i; col);
+      Text.go(row + i, col);
       System.out.print(" ".repeat(width));
     }
 
@@ -119,7 +119,7 @@ public class Game{
     public static Adventurer createRandomEnemy(){
       String name = defaultNames[(int) (Math.random() * 19)];
       int character = (int)(Math.random() * 6);
-      if (character == 1){
+      /*if (character == 1){
         return new Creeper(name+(int)(Math.random()*100));
       }
       if (character == 2){
@@ -127,16 +127,16 @@ public class Game{
       }
       if (character == 3) {
         return new Skeleton(name+(int)(Math.random()*100));
-      }
-      if (character == 4) {
+      }*/
+      //if (character == 4) {
         return new Spider(name+(int)(Math.random()*100));
-      }
-      if (character == 5) {
+      //}
+      /*if (character == 5) {
         return new Wither(name+(int)(Math.random()*100));
       }
       else {
         return new Zombie(name+(int)(Math.random()*100));
-      }
+      }*/
     }
 
     /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
@@ -165,7 +165,7 @@ public class Game{
         Text.go(startRow, column);
         System.out.print(current.getSpecialName() + ": " + current.getSpecial());
         startRow = start;
-        column += (78/party.size() - 1);
+        column += Math.max(1, 78 / party.size());
       }
       /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     }
@@ -203,8 +203,9 @@ public class Game{
     //draw player party
     drawParty(party, 16);
     //draw enemy party
-    System.out.println("Enemu Players: ");
-    int enemyRow = 17 + playerParty.size();
+    Text.go(20, 2);
+    System.out.println("Enemy Players: ");
+    int enemyRow = 21;
     drawParty(enemies, enemyRow);
   }
 
@@ -345,7 +346,7 @@ public class Game{
       }
 
       //display the updated screen after input has been processed.
-      drawScreen();
+      drawScreen(enemies, party);
 
 
     }//end of main game loop
