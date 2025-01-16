@@ -5,7 +5,7 @@ public class Zombie extends Adventurer{
     this(name, 10);
   }
   public Zombie(String name, int HP){
-    super("The Zombie",20);
+    super("A Zombie",20);
     Random seed = new Random();
     Random rng = new Random((long)seed.nextInt());
     this.armor = (int)(rng.nextDouble() * 16);
