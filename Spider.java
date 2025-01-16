@@ -47,8 +47,8 @@ public class Spider extends Adventurer{
     Random rng = new Random((long)seed.nextInt());
     double choice = rng.nextDouble();
     if (cobwebs >= 8) return specialAttack(other);
-    else if(rng < .7) return attack(other);
-    else if(rng < .9) return support();
+    else if(choice < .7) return attack(other);
+    else if(choice < .9) return support();
     else return specialAbility();
   }
 }

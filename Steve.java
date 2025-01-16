@@ -29,7 +29,7 @@ public class Steve extends Adventurer{
     this.restoreSpecial(resourcesgathered);
     if(rng <.2){
       other.applyDamage((int)(this.damage * 1.5));
-      return("Steve swung his weapon at the enemy and dealt a critical hit!"+" He dealt "+other.printDamage(damage*1.5)+" damage.  He also did some off-camera mining and gathered "+resourcesgathered+" useful items.");
+      return("Steve swung his weapon at the enemy and dealt a critical hit!"+" He dealt "+other.printDamage((int)(damage*1.5))+" damage.  He also did some off-camera mining and gathered "+resourcesgathered+" useful items.");
     }else if(rng >=.2 && rng <.4){
     this.restoreSpecial(5);
       return("Steve swung his weapon at the enemy but he missed.  Instead, he collected "+(resourcesgathered+5)+" useful items.");

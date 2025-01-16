@@ -263,8 +263,6 @@ public class Game{
     int turn = 0;
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
-    //Draw the window border
-    drawBackground();
     //You can add parameters to draw screen!
     drawScreen(enemies, party);//initial state.
 
