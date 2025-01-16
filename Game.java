@@ -74,12 +74,24 @@ public class Game{
     String [] words = text.split(" ");
     String line = "";
 
-    for (int i = 0; i < words.length; i++){
-      if (line.length() + words[i].length() + 1 > width){
-        System.out.print("");
+    for (String word : words){
+      if (line.length() + word.length() + 1 > width){ //will surpass the given width
+        Text.go(currentRow++, col);
+        System.out.print(line);
+        line = "";
+        if (currentRow - row >= height) { break; }
       }
     }
 
+    if (currentRow - row < height){
+      Text.go(currentRow, col);
+      System.out.print(line);
+    }
+
+    for (int i = currentRow - row; i < height; i++){
+      Text.go(row + i; col);
+      System.out.print(" ".repeat(width));
+    }
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
@@ -101,6 +113,29 @@ public class Game{
       }
       else {
         return new Steve(name+(int)(Math.random()*100));
+      }
+    }
+
+    public static Adventurer createRandomEnemy(){
+      String name = defaultNames[(int) (Math.random() * 19)];
+      int character = (int)(Math.random() * 6);
+      if (character == 1){
+        return new Creeper(name+(int)(Math.random()*100));
+      }
+      if (character == 2){
+        return new Dragon(name+(int)(Math.random()*100));
+      }
+      if (character == 3) {
+        return new Skeleton(name+(int)(Math.random()*100));
+      }
+      if (character == 4) {
+        return new Spider(name+(int)(Math.random()*100));
+      }
+      if (character == 5) {
+        return new Wither(name+(int)(Math.random()*100));
+      }
+      else {
+        return new Zombie(name+(int)(Math.random()*100));
       }
     }
 
@@ -140,7 +175,7 @@ public class Game{
   public static String colorByPercent(int hp, int maxHP){
     String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
     //COLORIZE THE OUTPUT IF HIGH/LOW:
-    double percent = (hp/maxHP);
+    double percent = ((double) hp/maxHP);
     int color = 0;
     // under 25% : red
     if (percent < 25){
@@ -161,16 +196,16 @@ public class Game{
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
-  public static void drawScreen(){
-    /*
+  public static void drawScreen(ArrayList<Adventurer>enemies, ArrayList<Adventurer>party){
     drawBackground();
     Text.go(15,2);
+    System.out.println("Your Players: ");
     //draw player party
-    drawParty(playerParty, 16);
+    drawParty(party, 16);
     //draw enemy party
-    int enemyRow = 15 + playerParty.size();
-    drawParty(enemyParty, enemyRow);
-    */
+    System.out.println("Enemu Players: ");
+    int enemyRow = 17 + playerParty.size();
+    drawParty(enemies, enemyRow);
   }
 
   public static String userInput(Scanner in){
@@ -204,7 +239,7 @@ public class Game{
     ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
-    enemies.add(Steve); //CHANE TO BOSS LATER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    enemies.add(createRandomEnemy());
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     //Adventurers you control:
@@ -212,10 +247,7 @@ public class Game{
     ArrayList<Adventurer> party = new ArrayList<>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
-    createRandomAdventurer
-    Adventurer [] options = new Adventurer [] {SnowGolem, WanderingTrader, CodeWarrior}; //////ADD ALLAY !!!!!!!!!!!!!!!!!!
-    party.add(Steve);
-    party.add(options[Math.random() * 2]);
+    party.add(createRandomAdventurer());
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
     boolean partyTurn = true;
@@ -225,9 +257,9 @@ public class Game{
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
     //Draw the window border
-
+    drawBackground();
     //You can add parameters to draw screen!
-    drawScreen();//initial state.
+    drawScreen(enemies, party);//initial state.
 
     //Main loop
 
