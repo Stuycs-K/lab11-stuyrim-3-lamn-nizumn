@@ -77,15 +77,21 @@ public class Game{
     for (String word : words){
       if (line.length() + word.length() + 1 > width){ //will surpass the given width
         Text.go(currentRow++, col);
-        System.out.print(line);
+        System.out.print(line.toString());
         line = "";
         if (currentRow - row >= height) { break; }
       }
+
+
+      if (line.length() > 0) {
+            line += " ";
+      }
+      line += word;
     }
 
-    if (currentRow - row < height){
+    if (line.length() > 0 && currentRow < row + height){
       Text.go(currentRow, col);
-      System.out.print(line);
+      System.out.print(line.toString());
     }
 
     for (int i = currentRow - row; i < height; i++){
@@ -199,14 +205,12 @@ public class Game{
   public static void drawScreen(ArrayList<Adventurer>enemies, ArrayList<Adventurer>party){
     drawBackground();
     Text.go(15,2);
-    System.out.println("Your Players: ");
-    //draw player party
-    drawParty(party, 16);
-    //draw enemy party
-    Text.go(20, 2);
-    System.out.println("Enemy Players: ");
-    int enemyRow = 21;
-    drawParty(enemies, enemyRow);
+    TextBox(2, 2, WIDTH - 4, 3, "Your Players:");
+    drawParty(party, 5);
+
+    // Enemy Section
+    TextBox(HEIGHT - 5, 2, WIDTH - 4, 3, "Enemy Players:");
+    drawParty(enemies, HEIGHT - 3);
   }
 
   public static String userInput(Scanner in){
@@ -272,7 +276,7 @@ public class Game{
       input = userInput(in);
 
       //example debug statment
-      TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+      TextBox(2,2,2,76,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
       //display event based on last turn's input
       if(partyTurn){
@@ -295,6 +299,7 @@ public class Game{
           //assume the value that follows su  is an integer.
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           //YOUR CODE HERE
+          String [] takeInput = input.split(" ");
           System.out.print(party.get(whichPlayer).support());
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
@@ -327,26 +332,28 @@ public class Game{
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         //YOUR CODE HERE
-        int whichEnemeny = Math.random() * (enemies.size());
-        int chance = Math.random() *2;
-        if (whichEnemeny.getHP() < 4){
-          if (whichPlayer.getHP() < 4){
+        int whichEnemy = (int) (Math.random() * enemies.size()) ;
+        int chance = (int)(Math.random() * 2);
+        Adventurer enemy = enemies.get(whichEnemy);
+        Adventurer player = party.get(whichPlayer);
+        if (enemy.getHP() < 4){
+          if (player.getHP() < 4){
             if (chance == 0){
-              System.out.println(whichEnemeny.support());
+              System.out.println(enemy.support());
         }
           if (chance == 1){
-            System.out.println(whichEnemeny.attack(whichPlayer));
+            System.out.println(enemy.attack(player));
           }
         }
         else{
-          System.out.println(bot.support());
+          System.out.println(enemy.support());
         }
       }
-      else if (other.getHP() > other.getmaxHP() / 2 && bot.getSpecial() > 7){
-        System.out.println(bot.specialAttack(other));
+      else if (player.getHP() > player.getmaxHP() / 2 && enemy.getSpecial() > 4){
+        System.out.println(enemy.specialAttack(player));
       }
       else{
-        System.out.println(bot.attack(other));
+        System.out.println(enemy.attack(player));
       }
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
