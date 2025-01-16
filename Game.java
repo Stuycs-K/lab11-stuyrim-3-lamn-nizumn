@@ -281,11 +281,13 @@ public class Game{
         if(input.equals("attack") || input.equals("a")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           //YOUR CODE HERE
+          System.out.print(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.equals("special") || input.equals("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           //YOUR CODE HERE
+          System.out.print(party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
@@ -293,6 +295,7 @@ public class Game{
           //assume the value that follows su  is an integer.
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           //YOUR CODE HERE
+          System.out.print(party.get(whichPlayer).support());
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         }
 
@@ -324,6 +327,27 @@ public class Game{
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         //YOUR CODE HERE
+        int whichEnemeny = Math.random() * (enemies.size());
+        int chance = Math.random() *2;
+        if (whichEnemeny.getHP() < 4){
+          if (whichPlayer.getHP() < 4){
+            if (chance == 0){
+              System.out.println(whichEnemeny.support());
+        }
+          if (chance == 1){
+            System.out.println(whichEnemeny.attack(whichPlayer));
+          }
+        }
+        else{
+          System.out.println(bot.support());
+        }
+      }
+      else if (other.getHP() > other.getmaxHP() / 2 && bot.getSpecial() > 7){
+        System.out.println(bot.specialAttack(other));
+      }
+      else{
+        System.out.println(bot.attack(other));
+      }
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 
