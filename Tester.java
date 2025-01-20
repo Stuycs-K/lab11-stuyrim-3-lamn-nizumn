@@ -72,10 +72,7 @@ public class Tester{
       if (partyTurn){
 
         ///////////////////////////////////////
-        if (! (input.equals("a") || input.equals("sp") || input.equals("su") || input.equals("quit"))){
-        System.out.println("invalid input. please type again");
-        }
-        
+
         if(input.equals("attack") || input.equals("a")){
           System.out.println(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
           System.out.println("1.) party attack done");
@@ -87,7 +84,13 @@ public class Tester{
           System.out.println("-------------------------------------------------");
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
-          System.out.println(party.get(whichPlayer).support());
+          int supportWho = input.charAt(input.length() - 1);
+          if (supportWho == whichPlayer){
+            System.out.println(party.get(whichPlayer).support());
+          }
+          else{
+            System.out.println(party.get(whichPlayer).support(party.get(supportWho)));
+          }
           System.out.println("1.) party attack done");
           System.out.println("-------------------------------------------------");
         }
