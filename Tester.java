@@ -48,29 +48,74 @@ public class Tester{
 
     ArrayList<Adventurer> party = new ArrayList<Adventurer>();
     party.add(createRandomAdventurer());
+    //////////////////
 
+    /////////////////////////////////
     int whichPlayer = 0;
     boolean partyTurn = true;
     int whichOpponent = 0;
+    /////////////////////////////////////////
 
-
+    /////////////////////////////////////////////
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
     System.out.println(preprompt);
+    ///////////////////////////////////////////////////
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
       input = in.nextLine();
 
+      //////////////////////////////////////////
       if (partyTurn){
 
+        ///////////////////////////////////////
         if(input.equals("attack") || input.equals("a")){
-          System.out.print(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
+          System.out.println(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
+        }
+        else if(input.equals("special") || input.equals("sp")){
+          System.out.println(party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
+        }
+        else if(input.startsWith("su ") || input.startsWith("support ")){
+          System.out.println(party.get(whichPlayer).support());
+        }
+        /////////////////////////////////////////
+
+        /*/////////////////////////////////////////
+        if(party.size() <= 3 || party.get(whichPlayer).getHP() < party.get(whichPlayer).getMaxHP()/2){
+          System.out.println("Add another player? y/n");
+          if(input.equals("y")){
+            party.add(createRandomAdventurer());
+          }
+        }
+        //////////////////////////////////////////*/
+        whichPlayer++;
+
+        if(whichPlayer < party.size()){
+          String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+          System.out.println(prompt);
+        }else{
+          String prompt = "press enter to see monster's turn";
+          System.out.println(prompt);
+          partyTurn = false;
+          whichOpponent = 0;
         }
 
       }
-    }
-  }
+      ////////////////////////////////////////////
+      else{
+        System.out.println(enemies.get(whichOpponent).chooseAction(party.get(whichOpponent)));
 
+        /*///////////////////////////////////////////
+        if(enemies.size() <= 3 || enemies.get(whichPlayer).getHP() < enemies.get(whichPlayer).getMaxHP()/2){
+          enemies.add(createRandomEnemy());
+        }
+        ///////////////////////////////////////////*/
+
+      }
+
+    }
+
+  }
 }
