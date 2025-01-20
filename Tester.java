@@ -64,7 +64,7 @@ public class Tester{
     System.out.println(preprompt);
     ///////////////////////////////////////////////////
 
-    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+    while(! ((input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && enemies.size() > 0 && party.size() > 0)){
       //Read user input
       input = in.nextLine();
 
@@ -72,6 +72,10 @@ public class Tester{
       if (partyTurn){
 
         ///////////////////////////////////////
+        if (! (input.equals("a") || input.equals("sp") || input.equals("su") || input.equals("quit"))){
+        System.out.println("invalid input. please type again");
+        }
+        
         if(input.equals("attack") || input.equals("a")){
           System.out.println(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
           System.out.println("1.) party attack done");
@@ -88,11 +92,11 @@ public class Tester{
           System.out.println("-------------------------------------------------");
         }
         /////////////////////////////////////////
-/*
+
         if (enemies.get(whichOpponent).getHP() <= 0){
           System.out.println(enemies.get(whichOpponent).getName() + " has died!");
           enemies.remove(whichOpponent);
-        }*/
+        }
 
 
         /////////////////////////////////////////
@@ -128,11 +132,11 @@ public class Tester{
         System.out.println(enemies.get(whichOpponent).chooseAction(party.get(whichPlayer)));
         System.out.println("2.) enemy attack done");
         System.out.println("-------------------------------------------------");
-/*
+
         if (party.get(whichPlayer).getHP() <= 0){
           System.out.println(party.get(whichPlayer).getName() + " has died!");
           party.remove(whichPlayer);
-        }*/
+        }
 
         ///////////////////////////////////////////
         if(enemies.size() > 0 && enemies.size() <= 3 && enemies.get(whichOpponent).getHP() < enemies.get(whichOpponent).getmaxHP()/2 && turns >= 3){
@@ -163,6 +167,17 @@ public class Tester{
         System.out.println(prompt);
       }
 
+    }
+    //while loop ended
+    ///////////////////////////////////////////////////////////////
+    if (input.equals("quit") || input.equals("qu")){
+      System.out.println("Forfeit means loss. Never forget this shame.");
+    }
+    else if (enemies.size() < 0){
+      System.out.println("You have died. You have brough disgrace to your name.");
+    }
+    else{
+      System.out.println("You have slain your enemy. You deserve a celebration.");
     }
 
   }
