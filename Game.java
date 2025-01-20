@@ -336,25 +336,7 @@ public class Game{
         int chance = (int)(Math.random() * 2);
         Adventurer enemy = enemies.get(whichEnemy);
         Adventurer player = party.get(whichPlayer);
-        if (enemy.getHP() < 4){
-          if (player.getHP() < 4){
-            if (chance == 0){
-              System.out.println(enemy.support());
-        }
-          if (chance == 1){
-            System.out.println(enemy.attack(player));
-          }
-        }
-        else{
-          System.out.println(enemy.support());
-        }
-      }
-      else if (player.getHP() > player.getmaxHP() / 2 && enemy.getSpecial() > 4){
-        System.out.println(enemy.specialAttack(player));
-      }
-      else{
-        System.out.println(enemy.attack(player));
-      }
+        enemy.chooseAction(player);
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 

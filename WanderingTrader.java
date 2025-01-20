@@ -86,7 +86,7 @@ public class WanderingTrader extends Adventurer{
 
   public String specialAttack(Adventurer other){
     if (getSpecial() >= 7){
-      int damage = (int)(7 * Math.random() * 1.5);
+      int damage = (int)(7 * (Math.random() + 1)+1);
       other.applyDamage(damage);
       ability += damage;
       setSpecial(getSpecial()-7);
