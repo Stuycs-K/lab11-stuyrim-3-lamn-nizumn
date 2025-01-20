@@ -54,6 +54,7 @@ public class Tester{
     int whichPlayer = 0;
     boolean partyTurn = true;
     int whichOpponent = 0;
+    int turns = 0;
     /////////////////////////////////////////
 
     /////////////////////////////////////////////
@@ -73,24 +74,41 @@ public class Tester{
         ///////////////////////////////////////
         if(input.equals("attack") || input.equals("a")){
           System.out.println(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
+          System.out.println("1.) party attack done");
+          System.out.println("-------------------------------------------------");
         }
         else if(input.equals("special") || input.equals("sp")){
           System.out.println(party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
+          System.out.println("1.) party attack done");
+          System.out.println("-------------------------------------------------");
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           System.out.println(party.get(whichPlayer).support());
+          System.out.println("1.) party attack done");
+          System.out.println("-------------------------------------------------");
         }
         /////////////////////////////////////////
+/*
+        if (enemies.get(whichOpponent).getHP() <= 0){
+          System.out.println(enemies.get(whichOpponent).getName() + " has died!");
+          enemies.remove(whichOpponent);
+        }*/
 
-        /*/////////////////////////////////////////
-        if(party.size() <= 3 || party.get(whichPlayer).getHP() < party.get(whichPlayer).getMaxHP()/2){
+
+        /////////////////////////////////////////
+        if(party.size() > 0 && party.size() <= 3 && party.get(whichPlayer).getHP() < party.get(whichPlayer).getmaxHP()/2 && turns >= 4){
           System.out.println("Add another player? y/n");
+          input = in.nextLine();
           if(input.equals("y")){
             party.add(createRandomAdventurer());
+            System.out.println("1.5.) party member added");
+            System.out.println("-------------------------------------------------");
           }
         }
-        //////////////////////////////////////////*/
+        //////////////////////////////////////////
         whichPlayer++;
+        System.out.println("party number: " + party.size() + " player number: " + whichPlayer);
+        System.out.println("-------------------------------------------------");
 
         if(whichPlayer < party.size()){
           String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
@@ -103,16 +121,46 @@ public class Tester{
         }
 
       }
+      ///////////////////////////////////////////
       ////////////////////////////////////////////
       else{
-        System.out.println(enemies.get(whichOpponent).chooseAction(party.get(whichOpponent)));
+        whichPlayer = (int)(Math.random() * party.size());
+        System.out.println(enemies.get(whichOpponent).chooseAction(party.get(whichPlayer)));
+        System.out.println("2.) enemy attack done");
+        System.out.println("-------------------------------------------------");
+/*
+        if (party.get(whichPlayer).getHP() <= 0){
+          System.out.println(party.get(whichPlayer).getName() + " has died!");
+          party.remove(whichPlayer);
+        }*/
 
-        /*///////////////////////////////////////////
-        if(enemies.size() <= 3 || enemies.get(whichPlayer).getHP() < enemies.get(whichPlayer).getMaxHP()/2){
+        ///////////////////////////////////////////
+        if(enemies.size() > 0 && enemies.size() <= 3 && enemies.get(whichOpponent).getHP() < enemies.get(whichOpponent).getmaxHP()/2 && turns >= 3){
+          System.out.println("enemies increased!");
           enemies.add(createRandomEnemy());
+          System.out.println("2.5.) enemy member added");
+          System.out.println("-------------------------------------------------");
         }
-        ///////////////////////////////////////////*/
 
+        ///////////////////////////////////////////
+        String prompt = "press enter to see next turn";
+        System.out.println(prompt);
+
+        whichOpponent++;
+        System.out.println("enemy number: " + enemies.size() + " enemy number: " + whichOpponent);
+        System.out.println("-------------------------------------------------");
+
+      }
+
+      if(!partyTurn && whichOpponent >= enemies.size()){
+        //THIS BLOCK IS TO END THE ENEMY TURN
+        //It only triggers after the last enemy goes.
+        whichPlayer = 0;
+        whichOpponent = 0;
+        partyTurn=true;
+        //display this prompt before player's turn
+        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+        System.out.println(prompt);
       }
 
     }
