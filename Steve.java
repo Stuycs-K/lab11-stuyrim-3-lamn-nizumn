@@ -29,13 +29,13 @@ public class Steve extends Adventurer{
     this.restoreSpecial(resourcesgathered);
     if(rng <.2){
       other.applyDamage((int)(this.damage * 1.5));
-      return("Steve swung his weapon at the enemy and dealt a critical hit!"+" He dealt "+(int)(this.damage *1.5)+" damage.  He also did some off-camera mining and gathered "+resourcesgathered+" useful items.");
+      return("Steve swung his weapon at the enemy and dealt a critical hit!"+" He dealt "+other.printDamage((int)(damage*1.5))+" damage.  He also did some off-camera mining and gathered "+resourcesgathered+" useful items.");
     }else if(rng >=.2 && rng <.4){
     this.restoreSpecial(5);
       return("Steve swung his weapon at the enemy but he missed.  Instead, he collected "+(resourcesgathered+5)+" useful items.");
     }else{
       other.applyDamage(this.damage);
-      return("Steve swung his weapon at the enemy and dealt "+this.damage+" damage.  He also did some off-camera mining and gathered "+resourcesgathered+" useful items.");
+      return("Steve swung his weapon at the enemy and dealt "+other.printDamage(damage)+" damage.  He also did some off-camera mining and gathered "+resourcesgathered+" useful items.");
     }
 
   }
@@ -90,7 +90,7 @@ public class Steve extends Adventurer{
   public String specialAttack(Adventurer other){
     if(this.items >= 10){
       items -=10;
-      other.stunChance = .5;
+      other.stunChance = 1;
       return "Steve built a building around "+other.getName()+" and made them stuck.";
     }else{
       other.applyDamage(this.items*2);

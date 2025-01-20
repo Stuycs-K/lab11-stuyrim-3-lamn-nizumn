@@ -5,7 +5,7 @@ public class Spider extends Adventurer{
     this(name, 16);
   }
   public Spider(String name, int HP){
-    super("The spider", HP);
+    super("A Spider", HP);
     this.armor = 0;
     this.damage = 4;
   }
@@ -23,10 +23,10 @@ public class Spider extends Adventurer{
   }
   public String attack(Adventurer other){
     Random seed = new Random();
-    Random rng = new Random();
+    Random rng = new Random((long)seed.nextInt());
     int hit = this.damage+((int)(rng.nextDouble()*3-1));
     other.applyDamage(hit);
-    return(this.getName()+" bit "+other.getName()+" for "+hit+" damage.  The spider also spun "+this.restoreSpecial(((int)rng.nextDouble()*3)+1)+" cobwebs");
+    return(this.getName()+" bit "+other.getName()+" for "+other.printDamage(hit)+" damage.  The spider also spun "+this.restoreSpecial(((int)rng.nextDouble()*3)+1)+" cobwebs");
   }
   public String support(Adventurer other){
     return(this.getName()+" got stuck in a wall and forgot it was battling.  Spider spun "+restoreSpecial(5)+" cobwebs.");
@@ -35,11 +35,20 @@ public class Spider extends Adventurer{
     return support(this);
   }
   public String specialAttack(Adventurer other){
-    other.stunChance = .3;
-    return(this.getName()+" spun a large web and trapped "+other.getName()+" in a web.");
+      other.stunChance = .7;
+      cobwebs -= 8;
+      return(this.getName()+" spun a large web and trapped "+other.getName()+" in a web.");
   }
   public String specialAbility(){
-    return(this.getName()+" tells you a spider fact: Did you know that spiders can crawl up walls?");
+    return(this.getName()+" tells you a spider fact: Did you know that spiders need a 3x3 area to spawn?");
   }
-
+  public String chooseAction(Adventurer other){
+    Random seed = new Random();
+    Random rng = new Random((long)seed.nextInt());
+    double choice = rng.nextDouble();
+    if (cobwebs >= 8) return specialAttack(other);
+    else if(choice < .7) return attack(other);
+    else if(choice < .9) return support();
+    else return specialAbility();
+  }
 }

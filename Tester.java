@@ -1,23 +1,76 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
 public class Tester{
-  public static void main(String[] args){
-    Adventurer Snow = new SnowGolem();
-    Adventurer CW = new CodeWarrior();
-
-    System.out.println(Snow.getName() + ", " + Snow.getSpecialName() + ", " + Snow.getSpecial() + ", " + Snow.getSpecialMax());
-    Snow.setSpecial(29);
-    System.out.println(Snow.getName() + ", " + Snow.getSpecialName() + ", " + Snow.getSpecial() + ", " + Snow.getSpecialMax());
-
-    System.out.println(CW.attack(Snow));
-    System.out.println(Snow + ", " + Snow.getHP() + "/" + Snow.getmaxHP() + " HP, " + Snow.getSpecial() + "/" + Snow.getSpecialMax() + " " + Snow.getSpecialName());
-    System.out.println(Snow.attack(CW));
-    System.out.println(CW + ", " + CW.getHP() + "/" + CW.getmaxHP() + " HP, " + CW.getSpecial() + "/" + CW.getSpecialMax() + " " + CW.getSpecialName());
-    System.out.println(Snow.support(CW));
-    System.out.println(CW.support(Snow));
-
-    System.out.println(Snow + ", " + Snow.getHP() + "/" + Snow.getmaxHP() + " HP, " + Snow.getSpecial() + "/" + Snow.getSpecialMax() + " " + Snow.getSpecialName());
-    System.out.println(CW + ", " + CW.getHP() + "/" + CW.getmaxHP() + " HP, " + CW.getSpecial() + "/" + CW.getSpecialMax() + " " + CW.getSpecialName());
-    System.out.println(Snow.specialAttack(CW));
-    System.out.println(CW + ", " + CW.getHP() + "/" + CW.getmaxHP() + " HP, " + CW.getSpecial() + "/" + CW.getSpecialMax() + " " + CW.getSpecialName());
-
+  //return a random adventurer (choose between all available subclasses)
+  //feel free to overload this method to allow specific names/stats.
+  static String [] defaultNames = new String [] {"Andy", "Bob", "Chad", "Dave", "Ethan", "Fin", "Gabe", "Hector", "Ivan", "Jake", "Kevin", "Liam", "Mike", "Nick", "Oscar", "Peter", "Rob", "Steve", "Tom"};
+  public static Adventurer createRandomAdventurer(){
+    String name = defaultNames[(int) (Math.random() * 19)];
+    int character = (int)(Math.random() * 3);
+    if (character == 1){
+      return new CodeWarrior(name+(int)(Math.random()*100));
+    }
+    if (character == 2){
+      return new SnowGolem(name+(int)(Math.random()*100));
+    }
+    else {
+      return new Steve(name+(int)(Math.random()*100));
+    }
   }
+
+  public static Adventurer createRandomEnemy(){
+    String name = defaultNames[(int) (Math.random() * 19)];
+    int character = (int)(Math.random() * 5);
+    /*if (character == 1){
+      return new Creeper(name+(int)(Math.random()*100));
+    }
+    if (character == 2){
+      return new Dragon(name+(int)(Math.random()*100));
+    }
+    if (character == 3) {
+      return new Skeleton(name+(int)(Math.random()*100));
+    }*/
+    //if (character == 4) {
+      return new Spider(name+(int)(Math.random()*100));
+    //}
+    /*else {
+      return new Zombie(name+(int)(Math.random()*100));
+    }*/
+  }
+
+  public static void main(String[] args){
+
+    ///////////////////
+    ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
+    enemies.add(createRandomEnemy());
+
+    ArrayList<Adventurer> party = new ArrayList<Adventurer>();
+    party.add(createRandomAdventurer());
+
+    int whichPlayer = 0;
+    boolean partyTurn = true;
+    int whichOpponent = 0;
+
+
+    String input = "";//blank to get into the main loop.
+    Scanner in = new Scanner(System.in);
+    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+    System.out.println(preprompt);
+
+    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+      //Read user input
+      input = in.nextLine();
+
+      if (partyTurn){
+
+        if(input.equals("attack") || input.equals("a")){
+          System.out.print(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
+        }
+
+      }
+    }
+  }
+
 }

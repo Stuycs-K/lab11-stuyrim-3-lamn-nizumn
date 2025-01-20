@@ -81,15 +81,14 @@ public class SnowGolem extends Adventurer{
   }
 
   public void splitAttack(Adventurer opp1, Adventurer opp2, Adventurer opp3){
-    opp1.setHP(getHP() - 3);
+    System.out.println(this + " splits into 3 mini versions of themself and attacks all three opponents at once!");
+    opp1.applyDamage(3);
     System.out.println(opp1 + " has lost 3 hp!");
     opp2.setSpecial(getSpecial() - 3);
-    System.out.println(opp2 + " has lost 3 specials!");
-  }
-
-  public String specialAblity(Adventurer other){
-    splitAttack(other, other, other);
-    return "yay";
+    System.out.println(opp2 + " has lost 3 " + getSpecialName() + "!");
+    opp3.setSpecial(getSpecial() - 2);
+    opp3.applyDamage(1);
+    System.out.println(opp3 + " Has lost 2 " + getSpecialName() + " and 1 hp!");
   }
 
 

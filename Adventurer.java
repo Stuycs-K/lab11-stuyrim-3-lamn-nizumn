@@ -3,8 +3,9 @@ import java.util.ArrayList;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  public int damage, armor;
-  public double stunChance = 0;
+  public int damage, armor;//damage is to increment damage, each armor reduces damage taken by 4%
+  public double stunChance = 0;//if an adventurer's stunchance is greater than 0, there will be a probability that the adventurer will either stay stunned or escape.  Each attempt to un-stun doubles the chance that the stun will wear off the next turn.
+  public int poison = 0;//poison in will be implemented in the classic way.  Dealing (poison) damage in a turn and reducing (poison) by one.
   private ArrayList<Adventurer> enemies;
   private ArrayList<Adventurer> friends;
   //Abstract methods are meant to be implemented in child classes.
@@ -59,7 +60,10 @@ public abstract class Adventurer{
   public abstract String specialAttack(Adventurer other);
 
   public void applyDamage(int amount){
-    this.HP -= ((int) amount * (1 - (double)this.armor*.08));
+    this.HP -= ((int) amount * (1 - (double)this.armor*.04));
+  }
+  public int printDamage(int amount){
+    return (int)(amount * (1 - (double)(this.armor*.04)));
   }
 
   //You did it wrong if this happens.

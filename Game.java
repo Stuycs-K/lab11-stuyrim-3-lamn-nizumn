@@ -129,7 +129,7 @@ public class Game{
         return new Creeper(name+(int)(Math.random()*100));
       }
       if (character == 2){
-        return new Dragon(name+(int)(Math.random()*100));
+        return new Boss(name+(int)(Math.random()*100));
       }
       if (character == 3) {
         return new Skeleton(name+(int)(Math.random()*100));
@@ -251,7 +251,7 @@ public class Game{
 
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
-    ArrayList<Adventurer> party = new ArrayList<>();
+    ArrayList<Adventurer> party = new ArrayList<Adventurer>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     party.add(createRandomAdventurer());
@@ -263,8 +263,6 @@ public class Game{
     int turn = 0;
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
-    //Draw the window border
-    drawBackground();
     //You can add parameters to draw screen!
     drawScreen(enemies, party);//initial state.
 
