@@ -28,49 +28,49 @@ replace this with your documentation for your two Adventurer subclasses. If you 
 
 Nathan: Steve, enemies, boss
 ## Steve
-special: items\
-attack: swings sword at enemy, dealing damage.  can do crit for 1.5x or miss. restores special\
-support: uses a potion on itself or a friend.  can add damage, armor, or heal.\
-specialattack: throws blocks at enemy.  dealing 2 damage for every item it has and consuming all of them\
-specialability: upgrades either armor or damage using items\
+:white_check_mark: special: items\
+:white_check_mark: attack: swings sword at enemy, dealing damage.  can do crit for 1.5x or miss. restores special\
+:white_check_mark: support: uses a potion on itself or a friend.  can add damage, armor, or heal.\
+:white_check_mark: specialattack: throws blocks at enemy.  dealing 2 damage for every item it has and consuming all of them\
+:ballot_box_with_check: specialability: upgrades either armor or damage using items\
 
 note: enemies in minecraft don't really support each other\
-## Spider
-special: cobwebs\
-attack: bites opponent, dealing damage, restores special\
-support: restores own special. \
-specialattack: traps opponent in web, deals lots of damage, uses 8 webs\
-specialability: tells you a spider fact\
+## Spider :ballot_box_with_check:
+:white_check_mark: special: cobwebs\
+:white_check_mark: attack: bites opponent, dealing damage, restores special\
+:white_check_mark: support: restores own special. \
+:white_check_mark: specialattack: traps opponent in web, deals lots of damage, uses 8 webs\
+:ballot_box_with_check: specialability: tells you a spider fact\
 
-## Zombie
+## Zombie :ballot_box_with_check:
 feature: can spawn with a weapon, letting it do from 4 to 6 damage.\
-special: rot\
-attack: hits opponent either once, twice, or misses.  rots a little bit.\
-support: tries to reinforce, but isn't a leader zombie (does nothing).\
-specialattack: throws rotting meat at opponent, dealing damage at cost of health\
-specialability: doesn't have one, zombies are boring\
+:white_check_mark: special: rot\
+:white_check_mark: attack: hits opponent either once, twice, or misses.  rots a little bit.\
+:white_check_mark: support: tries to reinforce, but isn't a leader zombie (does nothing).\
+:white_check_mark: specialattack: throws rotting meat at opponent, dealing damage at cost of health\
+:ballot_box_with_check: specialability: doesn't have one, zombies are boring\
 
-## Dragon
-special: crystals\
-attack: either swoops to hit or fireballs a opponent.\
-support: perches on pillar, doing nothing.  So accurate!\
-specialattack: instantly kills the opponent with a 3% chance of being used.  this is when the dragon flings you into the air.  none of the adventurers remembered a water bucket.\
-specialability: heals itself using crystals.\
+## Dragon :white_check_mark:
+:white_check_mark: special: crystals\
+:white_check_mark: attack: either swoops to hit or fireballs a opponent.\
+:white_check_mark: support: perches on pillar, doing nothing.  So accurate!\
+:white_check_mark: specialattack: instantly kills the opponent with a 3% chance of being used.  this is when the dragon flings you into the air.  none of the adventurers remembered a water bucket.\
+:ballot_box_with_check: specialability: heals itself using crystals.\
 
 
 Nowar: snow golem, wandering trader
 
 ## Wandering trader
-special feature: can chose between three different artifacts --> three different specials
-random artifact assigned when created
-attack: hits enemy\
-support: heals and restores special of itself or a friend\
-specialattack: uses power of artifact to deal damage, consumes artifact power\
-specialability: uses all artfacts at once, basically oneshots enemy.\
+:ballot_box_with_check: special feature: can chose between three different artifacts --> three different specials\
+random artifact assigned when created\
+:white_check_mark: attack: hits enemy\
+:white_check_mark: support: heals and restores special of itself or a friend\
+:white_check_mark: specialattack: uses power of artifact to deal damage, consumes artifact power\
+:ballot_box_with_check: specialability: uses all artfacts at once, basically oneshots enemy.\
 
 
 ## Snow Golem
-attack: deals damage to opponent by throwing snowballs, restore special\
-support: heals target by sacrificing some of its health.\
-specialattack: throws some collected snowballs at opponent, dealing more damage.\
-specialability: throws snowballs at all opponents, dealing some damage to each.\
+:white_check_mark: attack: deals damage to opponent by throwing snowballs, restore special\
+:white_check_mark: support: heals target by sacrificing some of its health.\
+:white_check_mark: specialattack: throws some collected snowballs at opponent, dealing more damage.\
+:ballot_box_with_check: specialability: throws snowballs at all opponents, dealing some damage to each.\
