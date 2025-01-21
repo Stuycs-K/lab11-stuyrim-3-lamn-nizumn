@@ -15,7 +15,7 @@ public class SnowGolem extends Adventurer{
   }
 
   public SnowGolem(){
-    this("Benny");
+    this("Snow Golem " +(int)(Math.random()*100));
   }
 
   //abstract methods
@@ -36,6 +36,9 @@ public class SnowGolem extends Adventurer{
     if (n > getSpecialMax()){
       SnowBalls = SnowBallsMax;
     }
+    else if (n < 0) {
+      SnowBalls = 0;
+    }
     else{
       SnowBalls = n;
     }
@@ -44,28 +47,30 @@ public class SnowGolem extends Adventurer{
   public String support(Adventurer other){
     int hp = (rand.nextInt(3) + 1) * 3;
     setHP(getHP() - hp/3);
+    other.setHP(other.getHP() + hp);
     return this + " comes to the aid of " + other + " and gives them " + hp + " hp, losing some of their own!";
   }
 
   public String support(){
-    int hpNeeded = getmaxHP() - getmaxHP();
+    int hpNeeded = getmaxHP() - getHP();
     if (hpNeeded * 2 > getSpecial()){
-      setHP(getHP() + (getSpecial()/2 - 1));
-      setSpecial(getSpecial() - (getSpecial()/2 - 1));
-      return this + " used his remaining snowballs to generate hp";
+      int restoredHP = getSpecial() / 2;
+      setHP(getHP() + restoredHP);
+      setSpecial(getSpecial() - restoredHP);
+      return this + " used their remaining snowballs to generate " + restoredHP + " hp.";
     }
     else{
       setHP(getmaxHP());
       setSpecial(getSpecial() - hpNeeded * 2);
-      return this + " replenished his full health using some of his snowballs";
+      return this + " replenished their full health using some of their snowballs";
     }
   }
 
   public String attack(Adventurer other){
     int damage = 3;
     other.applyDamage(damage);  //might pass limit
-    setHP(getHP() + damage);
-    return this + " inflicted a damge of " + damage + " hp on " + other + " using his snowballs and gains some snowballs in turn!";
+    setSpecial(getSpecial() + 1);
+    return this + " inflicted a damge of " + damage + " hp on " + other + " using his snowballs and gains a snowball in turn!";
   }
 
   public String specialAttack(Adventurer other){
@@ -73,7 +78,7 @@ public class SnowGolem extends Adventurer{
       int damage = (rand.nextInt(3) + 2) * 3;
       other.applyDamage(damage);
       setSpecial(getSpecial() - 6);
-      return this + " used their special attack to through " + damage + " snowballs at " + other +", depleting them of " + damage + " hp!";
+      return this + " used their special attack to throw " + damage + " snowballs at " + other +", depleting them of " + damage + " hp!";
     }
     else{
       return this + " has run out of snoballs and instead " + attack(other);
@@ -81,7 +86,7 @@ public class SnowGolem extends Adventurer{
   }
 
   public void splitAttack(Adventurer opp1, Adventurer opp2, Adventurer opp3){
-    System.out.println(this + " splits into 3 mini versions of themself and attacks all three opponents at once!");
+    System.out.println(this + " splits into 3 mini versions of themselves and attacks all three opponents at once!");
     opp1.applyDamage(3);
     System.out.println(opp1 + " has lost 3 hp!");
     opp2.setSpecial(getSpecial() - 3);

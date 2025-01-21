@@ -66,6 +66,10 @@ public abstract class Adventurer{
     return (int)(amount * (1 - (double)(this.armor*.04)));
   }
 
+  public String chooseAction(Adventurer other){
+    return null;
+  }
+
   //You did it wrong if this happens.
   public Adventurer(){
     this("Lester-the-noArg-constructor-string");

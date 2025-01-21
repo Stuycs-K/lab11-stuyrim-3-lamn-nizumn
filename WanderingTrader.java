@@ -4,10 +4,8 @@ import java.util.ArrayList;
 public class WanderingTrader extends Adventurer{
   int MagicMirror, GoldenGoblet, InfinityPouch, ArtifactPowerMax;
   int Artifact;
-  int [] Artifacts = new int [] {MagicMirror, GoldenGoblet, InfinityPouch};
   int ability; //can acess more artifacts with greater ability
   Random rand = new Random();
-  ArrayList<String> availableArtifacts = new ArrayList<String>();
 
   public void whichArtifact(){
     Artifact = rand.nextInt(3) + 1;
@@ -17,9 +15,6 @@ public class WanderingTrader extends Adventurer{
     super(name, hp);
     ArtifactPowerMax = rand.nextInt(11) + 25;
     whichArtifact();
-    if (Artifact == 1) { availableArtifacts.add("Magic Mirror");}
-    if (Artifact == 2) { availableArtifacts.add("Golden Goblet");}
-    if (Artifact == 1) { availableArtifacts.add("Infinity Pouch");}
     MagicMirror = 40;
     GoldenGoblet = 40;
     InfinityPouch = 40;
@@ -30,7 +25,7 @@ public class WanderingTrader extends Adventurer{
   }
 
   public WanderingTrader(){
-    this("Thomas");
+    this("The Wandering Trader" + (int)(Math.random()*100));
   }
 
   //abstract methods:
@@ -58,7 +53,7 @@ public class WanderingTrader extends Adventurer{
   }
 
   public String attack(Adventurer other){
-    int damage = (int)((rand.nextInt(5)+1)*2);
+    int damage = (rand.nextInt(5)+1)*2;
     other.applyDamage(damage);
     ability += damage;
     int restore;
@@ -68,12 +63,13 @@ public class WanderingTrader extends Adventurer{
     else{
       restore = damage * 2;
     }
-    restoreSpecial(restore);
-    return this.getName() + " attacked " + other.getName() + " and dealt a damage of " + damage + " hp. In turn, the " + getSpecial() + " gained " + restore + getSpecialName + "!";
+    setSpecial(getSpecial() + restore);
+    return this.getName() + " attacked " + other.getName() + " and dealt a damage of " + damage + " hp. In turn, the " + getSpecialName() + " gained " + restore + getSpecialName() + "!";
   }
 
   public String support(Adventurer other){
     int restore = (other.getmaxHP() - other.getHP()) / 2;
+    other.setSpecial(other.getSpecial() + restore);
     return this.getName() + " replenishes the resources of " + other.getName() + " and restores " + other.restoreSpecial(restore) + " " + other.getSpecialName();
   }
 
@@ -90,17 +86,17 @@ public class WanderingTrader extends Adventurer{
       other.applyDamage(damage);
       ability += damage;
       setSpecial(getSpecial()-7);
-      return this.getName() + " used the " + getSpecialName() + " to zap " + other.getName() + " and dealt a damge of " + damage + " hp points!";
+      return this.getName() + " used his " + getSpecialName() + " to zap " + other.getName() + " and dealt a damge of " + damage + " hp points!";
     }
-    return this.getName() + " has depleted all the power of the " + getSpecialName() + "and so must " + attack(other);
+    return this.getName() + " has depleted all the power of his " + getSpecialName() + "and so must " + attack(other);
   }
 
-  public void IncreaseArtifacts(){
-    if (ability > 30){
-      if (availableArtifacts.get(1).equals("Magic Mirror")){
-        availableArtifacts.add("Golden Goblet");
-      }
-      }
+  public void specialAbility(){
+    if (ability > 20){
+      Artifact = (Artifact % 3) + 1;
+    }
+    else if (ability > 40){
+      Artifact = (Artifact % 3) + 1;
     }
   }
 
