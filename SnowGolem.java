@@ -15,7 +15,7 @@ public class SnowGolem extends Adventurer{
   }
 
   public SnowGolem(){
-    this("Snow Golem " +(int)(Math.random()*100));
+    this("Snow Golem");
   }
 
   //abstract methods
@@ -86,12 +86,10 @@ public class SnowGolem extends Adventurer{
   }
 
   public String splitAttack(Adventurer opp1, Adventurer opp2, Adventurer opp3){
-    opp1.applyDamage(3);
-    opp2.setSpecial(getSpecial() - 2);
-    opp2.applyDamage(2);
-    opp3.setSpecial(getSpecial() -3 );
-    opp3.applyDamage(1);
-    return(this.getName()+" split into 3 versions of itself at attacked all the enemies! "+opp1.getName()+" took 3 damage. "+opp2.getName()+" took 2 damage and lost 2 "+opp2.getSpecialName()+". "+opp3.getName()+" took 1 damage and lost 3 "+opp3.getSpecialName()+".");
+    for(int i = 0; i<enemies.size();i++){
+      enemies.get(i).applyDamage(3);
+    }
+    return(this.getName()+" threw snowballs at all the enemies, dealing 3 damage to each");
   }
   public String specialAbility(Adventurer other){
     return(splitAttack(enemies.get(0), enemies.get(1),enemies.get(2)));

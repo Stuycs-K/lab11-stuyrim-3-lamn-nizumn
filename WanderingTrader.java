@@ -25,7 +25,7 @@ public class WanderingTrader extends Adventurer{
   }
 
   public WanderingTrader(){
-    this("The Wandering Trader" + (int)(Math.random()*100));
+    this("Wandering Trader");
   }
 
   //abstract methods:

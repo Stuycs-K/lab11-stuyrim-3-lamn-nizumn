@@ -88,14 +88,12 @@ public class Steve extends Adventurer{
     return("Steve drank a potion of "+potions[potionindex][0]+", "+potions[potionindex][1]+".");
   }
   public String specialAttack(Adventurer other){
-    if(this.items >= 10){
-      items -=10;
-      other.stunChance = 1;
-      return "Steve built a building around "+other.getName()+" and made them stuck.";
+    if(this.items > 0){
+      int damage = items*2;
+      return(this.getName()+" threw a bunch of blocks at "+other.getName()+" dealing "+other.printDamage(damage)+".");
     }else{
-      other.applyDamage(this.items*2);
-      items = 0;
-      return "Steve tried to build a building around "+ other.getName()+", but he did not have enough blocks.  Instead, Steve dropped the blocks on "+other.getName()+" and did "+this.items*2+" damage.";
+      this.restoreSpecial(5);
+      return(this.getName()+" tried to throw blocks at "+other.getName()+" but had no blocks.  Instead, he mined 5 blocks");
     }
   }
   public String specialAbility(Adventurer other){

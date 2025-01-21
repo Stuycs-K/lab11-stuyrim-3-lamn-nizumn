@@ -8,7 +8,7 @@ public class Zombie extends Adventurer{
     super("Zombie",20);
     Random seed = new Random();
     Random rng = new Random((long)seed.nextInt());
-    this.armor = (int)(rng.nextDouble() * 16);
+    this.armor = 0;
     this.damage = (int)(rng.nextDouble() * 3)+4;
   }
   public int getSpecial(){
@@ -47,10 +47,10 @@ public class Zombie extends Adventurer{
     return support(this);
   }
   public String specialAttack(Adventurer other){
-    other.poison +=5;
-    rot -= 40;
+    other.applyDamage(10);
+    rot -= 20;
     setHP(this.getHP() - 5);
-    return(this.getName()+" is rotting so much that it threw pieces of its body at "+other.getName()+" applying 5 poison but also doing 5 damage to themself.");
+    return(this.getName()+" is rotting so much that it threw pieces of its body at "+other.getName()+" dealing 10 damage but also doing 5 damage to themself.");
   }
   public String specialAbility(Adventurer other){
     return("you shouldn't be seeing this..");
@@ -59,7 +59,7 @@ public class Zombie extends Adventurer{
     Random seed = new Random();
     Random rng = new Random((long)seed.nextInt());
     double choice = rng.nextDouble();
-    if(rot >= 40 && this.getHP()> 5) return specialAttack(other);
+    if(rot >= 20 && this.getHP()> 5) return specialAttack(other);
     else if(choice < .8) return attack(other);
     else return support();
   }

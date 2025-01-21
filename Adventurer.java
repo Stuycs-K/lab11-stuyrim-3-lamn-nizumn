@@ -4,8 +4,6 @@ public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
   public int damage, armor;//damage is to increment damage, each armor reduces damage taken by 4%
-  public double stunChance = 0;//if an adventurer's stunchance is greater than 0, there will be a probability that the adventurer will either stay stunned or escape.  Each attempt to un-stun doubles the chance that the stun will wear off the next turn.
-  public int poison = 0;//poison in will be implemented in the classic way.  Dealing (poison) damage in a turn and reducing (poison) by one.
   public ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
   public ArrayList<Adventurer> friends = new ArrayList<Adventurer>();
   //Abstract methods are meant to be implemented in child classes.

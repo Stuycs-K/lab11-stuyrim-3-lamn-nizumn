@@ -35,9 +35,12 @@ public class Spider extends Adventurer{
     return support(this);
   }
   public String specialAttack(Adventurer other){
-      other.stunChance = .7;
+      Random seed = new Random();
+      Random rng = new Random((long)seed.nextInt());
+      int damage = 7+(int)(rng.nextDouble()*10 - 5);
+      other.applyDamage(damage);
       cobwebs -= 8;
-      return(this.getName()+" spun a large web and trapped "+other.getName()+" in a web.");
+      return(this.getName()+" spun a large web and trapped "+other.getName()+" in it.  Other monsters took advantage of this opportunity, dealing "+other.printDamage(damage)+".");
   }
   public String specialAbility(Adventurer other){
     return(this.getName()+" tells you a spider fact: Did you know that spiders need a 3x3 area to spawn?");
