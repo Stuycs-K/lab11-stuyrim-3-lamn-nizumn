@@ -156,7 +156,7 @@ public class Game{
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       //YOUR CODE HERE
       int start = startRow;
-      int column = 2;
+      int column = 5;
       for (int i = 0; i < party.size(); i++){
         Text.go(startRow, column);
         Adventurer current = party.get(i);
@@ -168,7 +168,7 @@ public class Game{
         Text.go(startRow, column);
         System.out.print(current.getSpecialName() + ": " + current.getSpecial());
         startRow = start;
-        column += Math.max(1, 78 / party.size());
+        column += Math.max(1, 74 / party.size());
       }
       /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     }
@@ -277,6 +277,7 @@ public class Game{
     while(! ((input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && enemies.size() > 0 && party.size() > 0)){
       //Read user input
       input = in.nextLine();
+      drawScreen(enemies, party);
 
       //////////////////////////////////////////
       if (partyTurn){
@@ -289,8 +290,17 @@ public class Game{
         else if(input.equals("special") || input.equals("sp")){
           TextBox(20,5,70,2, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
         }
-        else if(input.startsWith("su ") || input.startsWith("support ")){
-          int supportWho = input.charAt(input.length() - 1);
+        else if(input.startsWith("su ")){
+          int supportWho = input.charAt(3) - '0';
+          if (supportWho == whichPlayer){
+            TextBox(20,5,70,2, party.get(whichPlayer).support());
+          }
+          else{
+            TextBox(20,5,70,2, party.get(whichPlayer).support(party.get(supportWho)));
+          }
+        }
+        else if(input.startsWith("support ")){
+          int supportWho = input.charAt(8) - '0';
           if (supportWho == whichPlayer){
             TextBox(20,5,70,2, party.get(whichPlayer).support());
           }
@@ -335,7 +345,7 @@ public class Game{
         //done with one party member
         ///////////////////////////////////////////
         ////////////////////////////////////////////
-      }else{
+      }else if (enemies.size() > 0){
         //not the party turn!
 
 
@@ -389,7 +399,7 @@ public class Game{
       }
 
       //display the updated screen after input has been processed.
-      drawScreen(enemies, party);
+      //drawScreen(enemies, party);
 
 
     }//end of main game loop
