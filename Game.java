@@ -129,7 +129,7 @@ public class Game{
         return new Creeper(name+(int)(Math.random()*100));
       }
       if (character == 2){
-        return new Dragon(name+(int)(Math.random()*100));
+        return new Boss(name+(int)(Math.random()*100));
       }
       if (character == 3) {
         return new Skeleton(name+(int)(Math.random()*100));

@@ -5,7 +5,7 @@ public class Steve extends Adventurer{
     this("Steve", 20);
   }
   public Steve(String name, int HP){
-    super(name, HP);
+    super("Steve", HP);
     this.armor = 0;
     this.damage = 5;
   }
