@@ -18,29 +18,29 @@ public class Game{
   public static void drawBackground(){
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    Text.hideCursor();
     Text.clear();
 
+    int rows = 30;
+    int cols = 80;
     String horizontal = "-";
     String vertical = "|";
 
-    Text.go(1,1);
-    for (int i = 0; i < 80; i++){
-      System.out.print(Text.colorize(horizontal, Text.GREEN));
+    // Draw the top and bottom borders
+    for (int col = 1; col <= cols; col++) {
+        Text.go(1, col); // Top border
+        System.out.print(horizontal);
+        Text.go(rows-1, col); // Bottom border
+        System.out.print(horizontal);
     }
 
-    for (int line = 2; line < 29; line++){
-      Text.go(line,1);
-      System.out.print(Text.colorize(vertical, Text.WHITE));
-      Text.go(line,80);
-      System.out.print(Text.colorize(vertical, Text.WHITE));
+    // Draw the left and right borders
+    for (int row = 2; row <= rows-1; row++) {
+        Text.go(row, 1); // Left border
+        System.out.print(vertical);
+        Text.go(row, cols); // Right border
+        System.out.print(vertical);
     }
-
-    Text.go(28,1);
-    for (int i = 0; i < 80; i++){
-      System.out.print(Text.colorize(horizontal, Text.GREEN));
-    }
-
-    Text.go(30,1);
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
@@ -69,35 +69,32 @@ public class Game{
   public static void TextBox(int row, int col, int width, int height, String text){
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
-    int currentRow = row;
-    int currentCol = col;
-    String [] words = text.split(" ");
-    String line = "";
+    for (int i = 0; i < height; i++) {
+      drawText(" ".repeat(width), row + i, col);
+    }
 
-    for (String word : words){
-      if (line.length() + word.length() + 1 > width){ //will surpass the given width
-        Text.go(currentRow++, col);
-        System.out.print(line);
-        line = word;
-        if (currentRow >= row + height) { break; }
-      }
-      else{
-        if (line.length() > 0) {
-              line += " ";
+    // Split the text into lines that fit within the specified width
+    int startIndex = 0;
+    for (int i = 0; i < height; i++) {
+      // Calculate the end index for the current line
+      int endIndex = Math.min(startIndex + width, text.length());
+
+      // Extract the substring to display in the current line
+      String line = text.substring(startIndex, endIndex);
+
+      // Draw the line in the appropriate row and column
+      drawText(line, row + i, col);
+
+      // Update the start index for the next line
+      startIndex += width;
+
+      // Stop if all text has been displayed
+      if (startIndex >= text.length()) {
+          break;
         }
-        line += word;
-      }
-    }
 
-    if (line.length() > 0 && currentRow < row + height){
-      Text.go(currentRow, col);
-      System.out.print(line.toString());
     }
-
-    for (int i = currentRow; i < row + height; i++){
-      Text.go(i, col);
-      System.out.print(" ".repeat(width));
-    }
+    Text.go(row+1, col);
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
@@ -107,24 +104,21 @@ public class Game{
 
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
-    static String [] defaultNames = new String [] {"Andy", "Bob", "Chad", "Dave", "Ethan", "Fin", "Gabe", "Hector", "Ivan", "Jake", "Kevin", "Liam", "Mike", "Nick", "Oscar", "Peter", "Rob", "Steve", "Tom"};
     public static Adventurer createRandomAdventurer(){
-      String name = defaultNames[(int) (Math.random() * 19)];
       int character = (int)(Math.random() * 3);
       if (character == 1){
-        return new CodeWarrior(name+(int)(Math.random()*100));
+        return new WanderingTrader();
       }
       if (character == 2){
-        return new SnowGolem(name+(int)(Math.random()*100));
+        return new SnowGolem();
       }
       else {
-        return new Steve(name+(int)(Math.random()*100));
+        return new Steve("Steve");
       }
     }
 
     public static Adventurer createRandomEnemy(){
-      String name = defaultNames[(int) (Math.random() * 19)];
-      int character = (int)(Math.random() * 6);
+      int character = (int)(Math.random() * 2);
       /*if (character == 1){
         return new Creeper(name+(int)(Math.random()*100));
       }
@@ -134,15 +128,15 @@ public class Game{
       if (character == 3) {
         return new Skeleton(name+(int)(Math.random()*100));
       }*/
-      //if (character == 4) {
-        return new Spider(name+(int)(Math.random()*100));
-      //}
+      if (character == 0) {
+        return new Spider("Spider");
+      }
       /*if (character == 5) {
         return new Wither(name+(int)(Math.random()*100));
-      }
-      else {
-        return new Zombie(name+(int)(Math.random()*100));
       }*/
+      else {
+        return new Zombie("Zombie");
+      }
     }
 
     /*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
@@ -159,7 +153,7 @@ public class Game{
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       //YOUR CODE HERE
       int start = startRow;
-      int column = 2;
+      int column = 5;
       for (int i = 0; i < party.size(); i++){
         Text.go(startRow, column);
         Adventurer current = party.get(i);
@@ -169,9 +163,12 @@ public class Game{
         System.out.print("HP: " + current.getHP());
         startRow++;
         Text.go(startRow, column);
+        System.out.println(colorByPercent(current.getHP(), current.getmaxHP()));
+        startRow++;
+        Text.go(startRow, column);
         System.out.print(current.getSpecialName() + ": " + current.getSpecial());
         startRow = start;
-        column += Math.max(1, 78 / party.size());
+        column += Math.max(1, 74 / party.size());
       }
       /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     }
@@ -195,7 +192,7 @@ public class Game{
     else{
       color = Text.WHITE;
     }
-    return output;
+    return Text.colorize(output, color);
   }
 
 
@@ -204,15 +201,16 @@ public class Game{
   //Place the cursor at the place where the user will by typing their input at the end of this method.
   public static void drawScreen(ArrayList<Adventurer>enemies, ArrayList<Adventurer>party){
     drawBackground();
-    Text.go(15,2);
+    Text.go(3,5);
     System.out.println("Your Players: ");
     //draw player party
-    drawParty(party, 16);
+    drawParty(party, 4);
     //draw enemy party
-    Text.go(20, 2);
+    Text.go(9, 5);
     System.out.println("Enemy Players: ");
-    int enemyRow = 21;
+    int enemyRow = 10;
     drawParty(enemies, enemyRow);
+
   }
 
   public static String userInput(Scanner in){
@@ -233,6 +231,10 @@ public class Game{
     Text.go(32,1);
   }
 
+
+  /////////////////////////////////
+  /////////////////////////////////
+  /////////////////////////////////
   public static void run(){
     //Clear and initialize
     Text.hideCursor();
@@ -251,7 +253,7 @@ public class Game{
 
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
-    ArrayList<Adventurer> party = new ArrayList<>();
+    ArrayList<Adventurer> party = new ArrayList<Adventurer>();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     party.add(createRandomAdventurer());
@@ -270,60 +272,90 @@ public class Game{
 
     //display this prompt at the start of the game.
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+    TextBox(15,5,70,1,preprompt);
 
-    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) ){
+
+      if (enemies.size() <= 0 || party.size() <= 0){
+        break;
+      }
+
       //Read user input
-      input = userInput(in);
+      input = in.nextLine();
+      drawScreen(enemies, party);
 
-      //example debug statment
-      TextBox(2,2,76,2,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+      //////////////////////////////////////////
+      if (partyTurn){
 
-      //display event based on last turn's input
-      if(partyTurn){
+        ///////////////////////////////////////
 
-        //Process user input for the last Adventurer:
         if(input.equals("attack") || input.equals("a")){
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          System.out.print(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          TextBox(15,5,70,3, party.get(whichPlayer).attack(enemies.get(whichOpponent)));
         }
         else if(input.equals("special") || input.equals("sp")){
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          System.out.print(party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          TextBox(15,5,70,3, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
         }
-        else if(input.startsWith("su ") || input.startsWith("support ")){
-          //"support 0" or "su 0" or "su 2" etc.
-          //assume the value that follows su  is an integer.
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          String [] takeInput = input.split(" ");
-          System.out.print(party.get(whichPlayer).support());
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+        else if(input.startsWith("su ")){
+          int supportWho = input.charAt(3) - '0';
+          if (supportWho == whichPlayer){
+            TextBox(15,5,70,3, party.get(whichPlayer).support());
+          }
+          else{
+            TextBox(15,5,70,3, party.get(whichPlayer).support(party.get(supportWho)));
+          }
         }
+        else if(input.startsWith("support ")){
+          int supportWho = input.charAt(8) - '0';
+          if (supportWho == whichPlayer){
+            TextBox(15,5,70,3, party.get(whichPlayer).support());
+          }
+          else{
+            TextBox(15,5,70,3, party.get(whichPlayer).support(party.get(supportWho)));
+          }
+        }
+        else{
+          TextBox(15,5,70,3, "invalid command. please type again");
+          continue;
+        }
+        /////////////////////////////////////////
 
-        //You should decide when you want to re-ask for user input
-        //If no errors:
+        //IF ENEMY DIES
+        ///////////////////////////////////
+        if (enemies.get(whichOpponent).getHP() <= 0){
+          TextBox(15,5,70,1, enemies.get(whichOpponent).getName() + " has died!");
+          enemies.remove(whichOpponent);
+          whichOpponent %= Math.max(1, enemies.size()); // Adjust opponent index
+        }
+        ///////////////////////////////////
+
+        //ADD ANOTHER PARTY MEMBER
+        /////////////////////////////////////////
+        if(party.size() <= 3 && (party.get(whichPlayer).getHP() < party.get(whichPlayer).getmaxHP()/2) && turn >= 3){
+          TextBox(20,5,70,1, "Add another player? y/n");
+          input = in.nextLine();
+          if(input.equals("y")){
+            party.add(createRandomAdventurer());
+          }
+        }
+        drawScreen(enemies, party);
+        //////////////////////////////////////////
+
+        //NEXT PLAYER WILL MAKE THEIR MOVE
+        /////////////////////////////////////////
         whichPlayer++;
 
-
         if(whichPlayer < party.size()){
-          //This is a player turn.
-          //Decide where to draw the following prompt:
           String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-
-
+          TextBox(25,5,70,1, prompt);
         }else{
-          //This is after the player's turn, and allows the user to see the enemy turn
-          //Decide where to draw the following prompt:
           String prompt = "press enter to see monster's turn";
-
+          TextBox(25,5,70,1, prompt);
           partyTurn = false;
           whichOpponent = 0;
         }
         //done with one party member
+        ///////////////////////////////////////////
+        ////////////////////////////////////////////
       }else{
         //not the party turn!
 
@@ -332,37 +364,79 @@ public class Game{
         //Enemy action choices go here!
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         //YOUR CODE HERE
-        int whichEnemy = (int) (Math.random() * enemies.size()) ;
-        int chance = (int)(Math.random() * 2);
-        Adventurer enemy = enemies.get(whichEnemy);
-        Adventurer player = party.get(whichPlayer);
-        enemy.chooseAction(player);
+
+        if (enemies.size() > 0){
+
+          whichPlayer = (int)(Math.random() * party.size()); //choose a random player
+          TextBox(15,5,70,3, enemies.get(whichOpponent).chooseAction(party.get(whichPlayer)));
+
+          //IF PLAYER DIES
+          ///////////////////////////////////
+          if (party.get(whichPlayer).getHP() <= 0){
+            TextBox(15,5,70,3, party.get(whichPlayer).getName() + " has died!");
+            party.remove(whichPlayer);
+            whichPlayer %= Math.max(1, party.size()); // Adjust player index
+          }
+          ///////////////////////////////////
+
+          //ENEMY MEMBER ADDED
+          ///////////////////////////////////////////
+          if(enemies.size() <= 3 && enemies.get(whichOpponent).getHP() < enemies.get(whichOpponent).getmaxHP()/2 && turn >= 2){
+            TextBox(20,5,70,2, "enemies increased!");
+            enemies.add(createRandomEnemy());
+          }
+          drawScreen(enemies, party);
+
+          if (turn == 5){
+            //enemies.add(new Boss("Dragon"));
+            TextBox(20, 5, 70, 2, "The boss has entered the battle. Prepare to fight the Ender Dragon");
+          }
+
+
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 
-        //Decide where to draw the following prompt:
-        String prompt = "press enter to see next turn";
+          //Decide where to draw the following prompt:
+          //NEXT ENEMY WILL MAKE THEIR MOVE
+          ///////////////////////////////////////////
+          String prompt = "press enter to see next turn";
+          TextBox(25,5,70,2, prompt);
 
-        whichOpponent++;
 
-      }//end of one enemy.
+          whichOpponent++;
 
-      //modify this if statement.
-      if(!partyTurn && whichOpponent >= enemies.size()){
-        //THIS BLOCK IS TO END THE ENEMY TURN
-        //It only triggers after the last enemy goes.
-        whichPlayer = 0;
-        turn++;
-        partyTurn=true;
-        //display this prompt before player's turn
-        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-      }
+        }//end of one enemy.
+
+        //modify this if statement.
+        if(whichOpponent >= enemies.size()){
+          //THIS BLOCK IS TO END THE ENEMY TURN
+          //It only triggers after the last enemy goes.
+          whichPlayer = 0;
+          whichOpponent = 0;
+          partyTurn=true;
+          turn++;
+          //display this prompt before player's turn
+          String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+          TextBox(25,5,70,2, prompt);
+        }
 
       //display the updated screen after input has been processed.
-      drawScreen(enemies, party);
+      //drawScreen(enemies, party);
 
+    }
 
     }//end of main game loop
+    //while loop ended
+    ///////////////////////////////////////////////////////////////
+    if (input.equals("quit") || input.equals("qu")){
+      TextBox(25,5,70,2, "Forfeit means loss. Never forget this shame.");
+    }
+    else if (party.size() < 0){
+      TextBox(25,5,70,2, "You have died. You have brought disgrace to your name.");
+    }
+    else{
+      TextBox(25,5,70,2, "You have slain your enemy. You deserve a celebration.");
+    }
 
 
     //After quit reset things:

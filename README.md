@@ -10,7 +10,6 @@ friendly players
 ## Features
 
 Make a clear list of features that work/dont work
-* same number of attacks for each character (everything else + special ability)
 
 :white_check_mark: This feature works.
 
@@ -47,17 +46,6 @@ X: output\
 random artifact assigned when created
 needs to be written: player can chose artifact
 the more damage dealt on enemies--> more artifacts to chose between
-
-## Allay
-special: stop special of enemy\
-X: getSpecialName()\
-X: getSpecial()\
-X: setSpecial()\
-X: getSpecialMax()\
-X: attack(Adventurer other)\
-X: specialAttack(Adventurer other)\
-X: support(Adventurer other)\
-X: support()\
 
 ## Snow Golem
 special: snowball\
