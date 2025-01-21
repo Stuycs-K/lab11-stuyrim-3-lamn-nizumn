@@ -94,6 +94,7 @@ public class Game{
         }
 
     }
+    Text.go(row+1, col);
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
@@ -200,17 +201,16 @@ public class Game{
   //Place the cursor at the place where the user will by typing their input at the end of this method.
   public static void drawScreen(ArrayList<Adventurer>enemies, ArrayList<Adventurer>party){
     drawBackground();
-    Text.go(15,2);
+    Text.go(3,2);
     System.out.println("Your Players: ");
     //draw player party
-    drawParty(party, 16);
+    drawParty(party, 4);
     //draw enemy party
-    Text.go(20, 2);
+    Text.go(8, 2);
     System.out.println("Enemy Players: ");
-    int enemyRow = 21;
+    int enemyRow = 9;
     drawParty(enemies, enemyRow);
 
-    Text.go(27,2);
   }
 
   public static String userInput(Scanner in){
@@ -272,7 +272,7 @@ public class Game{
 
     //display this prompt at the start of the game.
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-    System.out.println(preprompt);
+    TextBox(15,5,70,1,preprompt);
 
     while(! ((input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && enemies.size() > 0 && party.size() > 0)){
       //Read user input
@@ -284,32 +284,26 @@ public class Game{
         ///////////////////////////////////////
 
         if(input.equals("attack") || input.equals("a")){
-          System.out.println(party.get(whichPlayer).attack(enemies.get(whichOpponent)));
-          System.out.println("1.) party attack done");
-          System.out.println("-------------------------------------------------");
+          TextBox(20,5,70,2, party.get(whichPlayer).attack(enemies.get(whichOpponent)));
         }
         else if(input.equals("special") || input.equals("sp")){
-          System.out.println(party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
-          System.out.println("1.) party attack done");
-          System.out.println("-------------------------------------------------");
+          TextBox(20,5,70,2, party.get(whichPlayer).specialAttack(enemies.get(whichOpponent)));
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           int supportWho = input.charAt(input.length() - 1);
           if (supportWho == whichPlayer){
-            System.out.println(party.get(whichPlayer).support());
+            TextBox(20,5,70,2, party.get(whichPlayer).support());
           }
           else{
-            System.out.println(party.get(whichPlayer).support(party.get(supportWho)));
+            TextBox(20,5,70,2, party.get(whichPlayer).support(party.get(supportWho)));
           }
-          System.out.println("1.) party attack done");
-          System.out.println("-------------------------------------------------");
         }
         /////////////////////////////////////////
 
         //IF ENEMY DIES
         ///////////////////////////////////
         if (enemies.get(whichOpponent).getHP() <= 0){
-          System.out.println(enemies.get(whichOpponent).getName() + " has died!");
+          TextBox(20,5,70,1, enemies.get(whichOpponent).getName() + " has died!");
           enemies.remove(whichOpponent);
         }
         ///////////////////////////////////
@@ -317,12 +311,10 @@ public class Game{
         //ADD ANOTHER PARTY MEMBER
         /////////////////////////////////////////
         if(party.size() > 0 && party.size() <= 3 && party.get(whichPlayer).getHP() < party.get(whichPlayer).getmaxHP()/2 && turn >= 4){
-          System.out.println("Add another player? y/n");
+          TextBox(25,5,70,1, "Add another player? y/n");
           input = in.nextLine();
           if(input.equals("y")){
             party.add(createRandomAdventurer());
-            System.out.println("1.5.) party member added");
-            System.out.println("-------------------------------------------------");
           }
         }
         //////////////////////////////////////////
@@ -330,15 +322,13 @@ public class Game{
         //NEXT PLAYER WILL MAKE THEIR MOVE
         /////////////////////////////////////////
         whichPlayer++;
-        System.out.println("party number: " + party.size() + " player number: " + whichPlayer);
-        System.out.println("-------------------------------------------------");
 
         if(whichPlayer < party.size()){
           String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-          System.out.println(prompt);
+          TextBox(15,5,70,1, prompt);
         }else{
           String prompt = "press enter to see monster's turn";
-          System.out.println(prompt);
+          TextBox(15,5,70,1, prompt);
           partyTurn = false;
           whichOpponent = 0;
         }
@@ -355,14 +345,12 @@ public class Game{
         //YOUR CODE HERE
 
         whichPlayer = (int)(Math.random() * party.size()); //choose a random player
-        System.out.println(enemies.get(whichOpponent).chooseAction(party.get(whichPlayer)));
-        System.out.println("2.) enemy attack done");
-        System.out.println("-------------------------------------------------");
+        TextBox(20,5,70,2, enemies.get(whichOpponent).chooseAction(party.get(whichPlayer)));
 
         //IF PLAYER DIES
         ///////////////////////////////////
         if (party.get(whichPlayer).getHP() <= 0){
-          System.out.println(party.get(whichPlayer).getName() + " has died!");
+          TextBox(20,5,70,2, party.get(whichPlayer).getName() + " has died!");
           party.remove(whichPlayer);
         }
         ///////////////////////////////////
@@ -370,10 +358,8 @@ public class Game{
         //ENEMY MEMBER ADDED
         ///////////////////////////////////////////
         if(enemies.size() > 0 && enemies.size() <= 3 && enemies.get(whichOpponent).getHP() < enemies.get(whichOpponent).getmaxHP()/2 && turn >= 3){
-          System.out.println("enemies increased!");
+          TextBox(25,5,70,2, "enemies increased!");
           enemies.add(createRandomEnemy());
-          System.out.println("2.5.) enemy member added");
-          System.out.println("-------------------------------------------------");
         }
 
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -383,7 +369,7 @@ public class Game{
         //NEXT ENEMY WILL MAKE THEIR MOVE
         ///////////////////////////////////////////
         String prompt = "press enter to see next turn";
-        System.out.println(prompt);
+        TextBox(15,5,70,2, prompt);
 
 
         whichOpponent++;
@@ -399,7 +385,7 @@ public class Game{
         partyTurn=true;
         //display this prompt before player's turn
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-        System.out.println(prompt);
+        TextBox(15,5,70,2, prompt);
       }
 
       //display the updated screen after input has been processed.
@@ -410,13 +396,13 @@ public class Game{
     //while loop ended
     ///////////////////////////////////////////////////////////////
     if (input.equals("quit") || input.equals("qu")){
-      System.out.println("Forfeit means loss. Never forget this shame.");
+      TextBox(25,5,70,2, "Forfeit means loss. Never forget this shame.");
     }
     else if (enemies.size() < 0){
-      System.out.println("You have died. You have brought disgrace to your name.");
+      TextBox(25,5,70,2, "You have died. You have brought disgrace to your name.");
     }
     else{
-      System.out.println("You have slain your enemy. You deserve a celebration.");
+      TextBox(25,5,70,2, "You have slain your enemy. You deserve a celebration.");
     }
 
 
