@@ -27,7 +27,7 @@ Make a clear list of features that work/dont work
 replace this with your documentation for your two Adventurer subclasses. If you modify or replace the provided CodeWarrior class, please provide documentation for that as well.
 
 Nathan: Steve, enemies, boss
-## Steve
+## Steve :white_check_mark:
 :white_check_mark: special: items\
 :white_check_mark: attack: swings sword at enemy, dealing damage.  can do crit for 1.5x or miss. restores special\
 :white_check_mark: support: uses a potion on itself or a friend.  can add damage, armor, or heal.\
@@ -60,7 +60,7 @@ feature: can spawn with a weapon, letting it do from 4 to 6 damage.\
 
 Nowar: snow golem, wandering trader
 
-## Wandering trader
+## Wandering trader :white_check_mark:
 :ballot_box_with_check: special feature: can chose between three different artifacts --> three different specials\
 random artifact assigned when created\
 :white_check_mark: attack: hits enemy\
@@ -69,7 +69,7 @@ random artifact assigned when created\
 :ballot_box_with_check: specialability: uses all artfacts at once, basically oneshots enemy.\
 
 
-## Snow Golem
+## Snow Golem :white_check_mark:
 :white_check_mark: attack: deals damage to opponent by throwing snowballs, restore special\
 :white_check_mark: support: heals target by sacrificing some of its health.\
 :white_check_mark: specialattack: throws some collected snowballs at opponent, dealing more damage.\
