@@ -274,7 +274,12 @@ public class Game{
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
     TextBox(15,5,70,1,preprompt);
 
-    while(! ((input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && enemies.size() > 0 && party.size() > 0)){
+    while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) ){
+
+      if (enemies.size() <= 0 || party.size() <= 0){
+        break;
+      }
+
       //Read user input
       input = in.nextLine();
       drawScreen(enemies, party);
@@ -308,6 +313,10 @@ public class Game{
             TextBox(20,5,70,2, party.get(whichPlayer).support(party.get(supportWho)));
           }
         }
+        else{
+          TextBox(20,5,70,2, "invalid command. please type again");
+          continue;
+        }
         /////////////////////////////////////////
 
         //IF ENEMY DIES
@@ -315,12 +324,13 @@ public class Game{
         if (enemies.get(whichOpponent).getHP() <= 0){
           TextBox(20,5,70,1, enemies.get(whichOpponent).getName() + " has died!");
           enemies.remove(whichOpponent);
+          whichOpponent %= Math.max(1, enemies.size()); // Adjust opponent index
         }
         ///////////////////////////////////
 
         //ADD ANOTHER PARTY MEMBER
         /////////////////////////////////////////
-        if(party.size() > 0 && party.size() <= 3 && party.get(whichPlayer).getHP() < party.get(whichPlayer).getmaxHP()/2 && turn >= 4){
+        if(party.size() <= 3 && (party.get(whichPlayer).getHP() < party.get(whichPlayer).getmaxHP()/2) && turn >= 3){
           TextBox(25,5,70,1, "Add another player? y/n");
           input = in.nextLine();
           if(input.equals("y")){
@@ -345,7 +355,7 @@ public class Game{
         //done with one party member
         ///////////////////////////////////////////
         ////////////////////////////////////////////
-      }else if (enemies.size() > 0){
+      }else{
         //not the party turn!
 
 
@@ -354,53 +364,59 @@ public class Game{
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         //YOUR CODE HERE
 
-        whichPlayer = (int)(Math.random() * party.size()); //choose a random player
-        TextBox(20,5,70,2, enemies.get(whichOpponent).chooseAction(party.get(whichPlayer)));
+        if (enemies.size() > 0){
 
-        //IF PLAYER DIES
-        ///////////////////////////////////
-        if (party.get(whichPlayer).getHP() <= 0){
-          TextBox(20,5,70,2, party.get(whichPlayer).getName() + " has died!");
-          party.remove(whichPlayer);
-        }
-        ///////////////////////////////////
+          whichPlayer = (int)(Math.random() * party.size()); //choose a random player
+          TextBox(20,5,70,2, enemies.get(whichOpponent).chooseAction(party.get(whichPlayer)));
 
-        //ENEMY MEMBER ADDED
-        ///////////////////////////////////////////
-        if(enemies.size() > 0 && enemies.size() <= 3 && enemies.get(whichOpponent).getHP() < enemies.get(whichOpponent).getmaxHP()/2 && turn >= 3){
-          TextBox(25,5,70,2, "enemies increased!");
-          enemies.add(createRandomEnemy());
-        }
+          //IF PLAYER DIES
+          ///////////////////////////////////
+          if (party.get(whichPlayer).getHP() <= 0){
+            TextBox(20,5,70,2, party.get(whichPlayer).getName() + " has died!");
+            party.remove(whichPlayer);
+            whichPlayer %= Math.max(1, party.size()); // Adjust player index
+          }
+          ///////////////////////////////////
+
+          //ENEMY MEMBER ADDED
+          ///////////////////////////////////////////
+          if(enemies.size() <= 3 && enemies.get(whichOpponent).getHP() < enemies.get(whichOpponent).getmaxHP()/2 && turn >= 2){
+            TextBox(25,5,70,2, "enemies increased!");
+            enemies.add(createRandomEnemy());
+          }
+
 
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 
-        //Decide where to draw the following prompt:
-        //NEXT ENEMY WILL MAKE THEIR MOVE
-        ///////////////////////////////////////////
-        String prompt = "press enter to see next turn";
-        TextBox(15,5,70,2, prompt);
+          //Decide where to draw the following prompt:
+          //NEXT ENEMY WILL MAKE THEIR MOVE
+          ///////////////////////////////////////////
+          String prompt = "press enter to see next turn";
+          TextBox(15,5,70,2, prompt);
 
 
-        whichOpponent++;
+          whichOpponent++;
 
-      }//end of one enemy.
+        }//end of one enemy.
 
-      //modify this if statement.
-      if(!partyTurn && whichOpponent >= enemies.size()){
-        //THIS BLOCK IS TO END THE ENEMY TURN
-        //It only triggers after the last enemy goes.
-        whichPlayer = 0;
-        whichOpponent = 0;
-        partyTurn=true;
-        //display this prompt before player's turn
-        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-        TextBox(15,5,70,2, prompt);
-      }
+        //modify this if statement.
+        if(whichOpponent >= enemies.size()){
+          //THIS BLOCK IS TO END THE ENEMY TURN
+          //It only triggers after the last enemy goes.
+          whichPlayer = 0;
+          whichOpponent = 0;
+          partyTurn=true;
+          turn++;
+          //display this prompt before player's turn
+          String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+          TextBox(15,5,70,2, prompt);
+        }
 
       //display the updated screen after input has been processed.
       //drawScreen(enemies, party);
 
+    }
 
     }//end of main game loop
     //while loop ended
