@@ -98,7 +98,7 @@ public class Steve extends Adventurer{
       return "Steve tried to build a building around "+ other.getName()+", but he did not have enough blocks.  Instead, Steve dropped the blocks on "+other.getName()+" and did "+this.items*2+" damage.";
     }
   }
-  public String specialAbility(){
+  public String specialAbility(Adventurer other){
     Random seed = new Random();
     Random rng = new Random((long)seed.nextInt());
     if(this.items>=5){

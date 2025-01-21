@@ -6,8 +6,8 @@ public abstract class Adventurer{
   public int damage, armor;//damage is to increment damage, each armor reduces damage taken by 4%
   public double stunChance = 0;//if an adventurer's stunchance is greater than 0, there will be a probability that the adventurer will either stay stunned or escape.  Each attempt to un-stun doubles the chance that the stun will wear off the next turn.
   public int poison = 0;//poison in will be implemented in the classic way.  Dealing (poison) damage in a turn and reducing (poison) by one.
-  private ArrayList<Adventurer> enemies;
-  private ArrayList<Adventurer> friends;
+  public ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
+  public ArrayList<Adventurer> friends = new ArrayList<Adventurer>();
   //Abstract methods are meant to be implemented in child classes.
   /*
   all adventurers must have a custom special
@@ -58,6 +58,8 @@ public abstract class Adventurer{
 
   //hurt or hinder the target adventurer, consume some special resource
   public abstract String specialAttack(Adventurer other);
+
+  public abstract String specialAbility(Adventurer other);
 
   public void applyDamage(int amount){
     this.HP -= ((int) amount * (1 - (double)this.armor*.04));

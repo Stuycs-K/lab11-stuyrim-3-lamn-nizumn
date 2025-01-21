@@ -5,7 +5,7 @@ public class Spider extends Adventurer{
     this(name, 16);
   }
   public Spider(String name, int HP){
-    super("A Spider", HP);
+    super("Spider", HP);
     this.armor = 0;
     this.damage = 4;
   }
@@ -39,7 +39,7 @@ public class Spider extends Adventurer{
       cobwebs -= 8;
       return(this.getName()+" spun a large web and trapped "+other.getName()+" in a web.");
   }
-  public String specialAbility(){
+  public String specialAbility(Adventurer other){
     return(this.getName()+" tells you a spider fact: Did you know that spiders need a 3x3 area to spawn?");
   }
   public String chooseAction(Adventurer other){
@@ -49,6 +49,6 @@ public class Spider extends Adventurer{
     if (cobwebs >= 8) return specialAttack(other);
     else if(choice < .7) return attack(other);
     else if(choice < .9) return support();
-    else return specialAbility();
+    else return specialAbility(other);
   }
 }

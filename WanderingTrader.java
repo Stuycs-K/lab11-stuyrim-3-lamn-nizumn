@@ -64,7 +64,7 @@ public class WanderingTrader extends Adventurer{
       restore = damage * 2;
     }
     setSpecial(getSpecial() + restore);
-    return this.getName() + " attacked " + other.getName() + " and dealt a damage of " + damage + " hp. In turn, the " + getSpecialName() + " gained " + restore + getSpecialName() + "!";
+    return this.getName() + " attacked " + other.getName() + " and dealt a damage of " + damage + " hp. In turn, the " + getSpecialName() + " gained " + restore + "power" + "!";
   }
 
   public String support(Adventurer other){
@@ -77,7 +77,7 @@ public class WanderingTrader extends Adventurer{
     int restore = (this.getmaxHP() - this.getHP()) / 2;
     int hp = rand.nextInt(4) + 5;
     setHP(getHP()+hp);
-    return "Takes a swift break to restore " + this.restoreSpecial(restore) + "to " + this.getSpecialName() + " and gain " + hp + "hp.";
+    return "Takes a swift break to restore " + this.restoreSpecial(restore) + " power to " + this.getSpecialName() + " and gain " + hp + " hp.";
   }
 
   public String specialAttack(Adventurer other){
@@ -90,14 +90,20 @@ public class WanderingTrader extends Adventurer{
     }
     return this.getName() + " has depleted all the power of his " + getSpecialName() + "and so must " + attack(other);
   }
-
-  public void specialAbility(){
-    if (ability > 20){
-      Artifact = (Artifact % 3) + 1;
+  public String specialAbility(Adventurer other){
+    Random seed = new Random();
+    Random rng = new Random((long)seed.nextInt());
+    if(MagicMirror>=20 && GoldenGoblet>=20 && InfinityPouch>=20){
+      int damage = (30 + (int)(rng.nextDouble()*10-5));
+      other.applyDamage(damage);
+      MagicMirror -= 20;
+      GoldenGoblet -=20;
+      InfinityPouch -=20;
+      return(this.getName()+" used all of their artifacts to unleash a laser on "+other.getName()+" and dealt "+damage+" damage.");
     }
-    else if (ability > 40){
-      Artifact = (Artifact % 3) + 1;
+    else{
+      attack(other);
+      return(this.getName()+" didn't have enough artifact power to use their ability, instead they must attack "+other.getName());
     }
   }
-
 }

@@ -1,5 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/KprAwj1n)
-# APCS - Stuyrim
+# APCS - lab 11
 
 
 Game Theme: Minecraft
@@ -27,8 +27,19 @@ Make a clear list of features that work/dont work
 replace this with your documentation for your two Adventurer subclasses. If you modify or replace the provided CodeWarrior class, please provide documentation for that as well.
 
 Nathan: Steve, a bunch of enemies, boss
+## Steve
 
-Nowar: snow golem, allay, wandering trader
+## Spider
+
+## Zombie
+
+
+
+## Dragon
+
+
+
+Nowar: snow golem, wandering trader
 
 ## Wandering trader
 special: magical artifact\

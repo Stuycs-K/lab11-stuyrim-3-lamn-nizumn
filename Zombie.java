@@ -5,7 +5,7 @@ public class Zombie extends Adventurer{
     this(name, 10);
   }
   public Zombie(String name, int HP){
-    super("A Zombie",20);
+    super("Zombie",20);
     Random seed = new Random();
     Random rng = new Random((long)seed.nextInt());
     this.armor = (int)(rng.nextDouble() * 16);
@@ -51,6 +51,9 @@ public class Zombie extends Adventurer{
     rot -= 40;
     setHP(this.getHP() - 5);
     return(this.getName()+" is rotting so much that it threw pieces of its body at "+other.getName()+" applying 5 poison but also doing 5 damage to themself.");
+  }
+  public String specialAbility(Adventurer other){
+    return("you shouldn't be seeing this..");
   }
   public String chooseAction(Adventurer other){
     Random seed = new Random();

@@ -1,10 +1,11 @@
+import java.util.Random;
 public class Boss extends Adventurer{
   private int crystals = 10;
   public Boss(String name){
     this(name, 100);
   }
   public Boss(String name, int HP){
-    super("The Ender Dragon", HP)
+    super("The Ender Dragon", HP);
     this.armor = 0;
     this.damage = 5;
   }
@@ -17,7 +18,7 @@ public class Boss extends Adventurer{
   public int getSpecialMax(){
     return 10;
   }
-  public void setSpecial(n){
+  public void setSpecial(int n){
     crystals = n;
   }
   public String attack(Adventurer other){
@@ -43,12 +44,23 @@ public class Boss extends Adventurer{
     other.setHP(0);
     return(this.getName()+" launched "+other.getName()+" into the stratosphere, killing them instantly upon re-entry.");
   }
-  public String specialAbility(){
+  public String specialAbility(Adventurer other){
     crystals -=2;
     this.setHP(this.getHP()+25);
     return(this.getName()+" used the end crystals to heal itself for 25 HP.  However, the party destroyed 2 of them with arrows");
   }
   public String chooseAction(Adventurer other){
-    
+    Random seed = new Random();
+    Random rng = new Random((long)seed.nextInt());
+    double choice = rng.nextDouble();
+    if(this.getHP()<=this.getmaxHP()-25 && choice < .5){
+      return (specialAbility(other));
+    }else if(choice < .7){
+      return(attack(other));
+    }else if(choice < .97){
+      return support();
+    }else{
+      return specialAttack(other);
+    }
   }
 }
